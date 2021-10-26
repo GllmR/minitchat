@@ -28,7 +28,8 @@
       }
 
       .chat-label {
-        flex: 3;
+        display: flex;
+        flex: 4;
         padding: .5em;
       }
 
@@ -41,23 +42,27 @@
       .chat-form {
         display: flex;
         justify-content: space-around;
+        flex: 1 1 5%;
       }
 
       .chat-window {
-        height: 86vh;
         width: 100%;
         overflow: auto;
         display:  flex;
         flex-direction: column-reverse;
+        flex: 1 1 95%;
+        padding: .5em;
       }
 
       #chatSection {
-        float: left;
-        border: 1px solid chartreuse;
+        border: 1px solid deeppink;
         border-radius: 10px;
         height: 100%;
         margin: 1em;
         padding: 1em;
+        display: flex;
+        flex-direction: column;
+        height: 95%;
       }
 
       .pseudo {
