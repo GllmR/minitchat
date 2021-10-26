@@ -1,0 +1,102 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+}
+
+#container {
+  position:  absolute;
+  font-family: Courier New;
+  background-color: black;
+  color:  chartreuse;
+  height: 95%;
+  width:  100%;
+}
+
+.chat-input {
+  border: 1px solid deeppink;
+  border-radius: 5px;
+  font-family: monospace;
+  width: 100%;
+  background-color: #1a1a1a;
+  color: lime;
+  padding: 5px;
+  transition: border-color .30s ease-in-out,box-shadow .30s ease-in-out;
+}
+
+.chat-input:focus {
+  border: 1px solid chartreuse;
+  box-shadow: 0px 0px 5px chartreuse;
+}
+
+.chat-label {
+  display: flex;
+  flex: 4;
+  padding: .5em;
+}
+
+.chat-submit {
+  background-color: black;
+  border: solid 1px #6c757d;
+  flex: 1;
+  margin: .5em;
+  padding:  .5em;
+  color:  #6c757d;
+  border-radius: 5px;
+  letter-spacing: 5px;
+  transition: border-color .30s ease-in-out,box-shadow .30s ease-in-out, letter-spacing .30s ease-in-out;
+}
+
+.chat-submit:hover {
+  color: deeppink;
+  border: 1px solid deeppink;
+  background-color: #1a1a1a;
+  letter-spacing: 8px;
+}
+
+.chat-form {
+  display: flex;
+  justify-content: space-around;
+  flex: 1 1 8%;
+  padding-top:  1em;
+}
+
+.chat-window {
+  overflow: auto;
+  display:  flex;
+  flex-direction: column-reverse;
+  flex: 1 1 95%;
+  padding: .5em;
+}
+
+#chatSection {
+  border: 1px solid deeppink;
+  border-radius: 10px;
+  margin: 1em;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  height: 95%;
+  box-shadow: 0px 0px 5px deeppink
+}
+
+.pseudo {
+  color:  deeppink;
+}
+
+.time {
+  color: goldenrod;
+  font-size: .8em;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+@media screen and (max-width: 600px) {
+  .chat-form {
+    flex-direction:  column;
+  }
+}

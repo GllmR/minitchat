@@ -3,72 +3,8 @@
 
   <head>
     <title>Chat app</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-      html, body {
-        padding: 0;
-        margin: 0;
-        height: 100%;
-        width: 100%;
-        background-color: black;
-      }
-
-      #container {
-        display: flex;
-        flex-direction: column;
-        font-family: Courier New;
-        background-color: black;
-        color:  chartreuse;
-        height: 100%;
-      }
-
-      .chat-input {
-        border: solid 1px #444;
-        width: 100%;
-      }
-
-      .chat-label {
-        display: flex;
-        flex: 4;
-        padding: .5em;
-      }
-
-      .chat-submit {
-        border: solid 1px #444;
-        flex: 1;
-        margin: .5em;
-      }
-
-      .chat-form {
-        display: flex;
-        justify-content: space-around;
-        flex: 1 1 5%;
-      }
-
-      .chat-window {
-        width: 100%;
-        overflow: auto;
-        display:  flex;
-        flex-direction: column-reverse;
-        flex: 1 1 95%;
-        padding: .5em;
-      }
-
-      #chatSection {
-        border: 1px solid deeppink;
-        border-radius: 10px;
-        height: 100%;
-        margin: 1em;
-        padding: 1em;
-        display: flex;
-        flex-direction: column;
-        height: 95%;
-      }
-
-      .pseudo {
-        color:  hotpink;
-      }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="style.css">
   </head>
 
   <body>
@@ -79,11 +15,10 @@
           <label class="chat-label">
             <input type="text" class="chat-input" />
           </label>
-          <input type="submit" class="chat-submit" value="Envoyer">
+          <button type="submit" class="chat-submit">Envoyer</button>
         </form>
       </div>
     </div>
-
     <script src="socket.io/socket.io.js"></script>
     <script src="script.js"></script>
   </body>
