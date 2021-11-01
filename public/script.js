@@ -3,6 +3,7 @@ const socket = io()
 const chat = document.querySelector('.chat-form')
 const msg = document.querySelector('.chat-input')
 const chatWindow = document.querySelector('.chat-window')
+let messages
 
 let name = document.cookie?.replace(/[=]/ig, '')
 
@@ -16,6 +17,16 @@ while (!name) {
 }
 
 socket.emit('user', name)
+
+socket.on('newUser', msgs => {
+  if (messages?.length !== msgs.length) {
+    msgs.map(msg => {
+      renderMessage(msg)
+    })
+
+    messages = msgs
+  }
+})
 
 chat.addEventListener('submit', event => {
   event.preventDefault()
@@ -32,6 +43,8 @@ const renderMessage = message => {
   if (message.text.split('').join('') !== '') {
     div.innerHTML = `<div class="message"><span class="time">${message.time}</span> ◀︎ <span class="pseudo"> ${message.name} </span> ▶︎ ${message.text}</div>`
   }
+
+  messages?.push(message)
 
   chatWindow.insertBefore(div, chatWindow.childNodes[0])
   div.scrollTop = 0
