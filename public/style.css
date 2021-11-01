@@ -93,6 +93,10 @@ html, body {
   font-size: .8em;
 }
 
+.icon {
+  height:  1.5em;
+}
+
 textarea:focus, input:focus{
     outline: none;
 }

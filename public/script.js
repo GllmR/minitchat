@@ -3,7 +3,8 @@ const socket = io()
 const chat = document.querySelector('.chat-form')
 const msg = document.querySelector('.chat-input')
 const chatWindow = document.querySelector('.chat-window')
-const permission = Notification.requestPermission(function(){});
+const permission = Notification.requestPermission(function(){})
+const date = new Date()
 let messages
 
 let name = document.cookie?.replace(/[=]/ig, '')
@@ -25,14 +26,14 @@ socket.on('newUser', msgs => {
       renderMessage(msg)
     })
 
+    socket.emit('chat', {'name': '<img src="/img/poulet.png" class="icon" />', text: `Bienvenue ${name}`, time: ''})
+
     messages = msgs
   }
 })
 
 chat.addEventListener('submit', event => {
   event.preventDefault()
-
-  const date = new Date()
 
   socket.emit('chat', {'name': name, 'text': msg.value, time: date.toLocaleString('fr-FR',{month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric'})})
   msg.value = ''
@@ -42,7 +43,7 @@ const renderMessage = message => {
   const div = document.createElement('div')
   div.classList.add('render-message')
   if (message.text.split('').join('') !== '') {
-    div.innerHTML = `<div class="message"><span class="time">${message.time}</span> ◀︎ <span class="pseudo"> ${message.name} </span> ▶︎ ${message.text}</div>`
+    div.innerHTML = `<div class="message"><span class="time">${message.time}</span>| <span class="pseudo"> ${message.name} </span> : <span>${message.text}</span></div>`
   }
 
   messages?.push(message)
