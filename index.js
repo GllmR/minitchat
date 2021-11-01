@@ -26,7 +26,6 @@ MongoClient.connect(url, function(err, db) {
     console.log('Some client connected')
     dbo.collection('messages').find({}).toArray((err, res) => {
       if (err) throw err
-      console.log(res)
       io.emit('newUser', res)
    })
 
@@ -34,7 +33,6 @@ MongoClient.connect(url, function(err, db) {
       console.log('From client: ', message)
       dbo.collection("messages").insertOne(message, (err, res) => {
         if (err)  throw err
-        console.log("Message ajouté")
       })
 
       io.emit('chat', message)
