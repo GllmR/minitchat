@@ -3,6 +3,7 @@ const socket = io()
 const chat = document.querySelector('.chat-form')
 const msg = document.querySelector('.chat-input')
 const chatWindow = document.querySelector('.chat-window')
+const permission = Notification.requestPermission(function(){});
 let messages
 
 let name = document.cookie?.replace(/[=]/ig, '')
@@ -48,6 +49,10 @@ const renderMessage = message => {
 
   chatWindow.insertBefore(div, chatWindow.childNodes[0])
   div.scrollTop = 0
+
+  if (permission && document.hidden) {
+    new Notification(message.name, { body: message.text.toString(), icon: './img/poulet.png'})
+  }
 }
 
 socket.on('chat', message => {
