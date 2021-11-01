@@ -4,7 +4,6 @@ const chat = document.querySelector('.chat-form')
 const msg = document.querySelector('.chat-input')
 const chatWindow = document.querySelector('.chat-window')
 const permission = Notification.requestPermission(function(){})
-const date = new Date()
 let messages
 
 let name = document.cookie?.replace(/[=]/ig, '')
@@ -34,6 +33,7 @@ socket.on('newUser', msgs => {
 
 chat.addEventListener('submit', event => {
   event.preventDefault()
+  const date = new Date()
 
   socket.emit('chat', {'name': name, 'text': msg.value, time: date.toLocaleString('fr-FR',{month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric'})})
   msg.value = ''
