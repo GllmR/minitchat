@@ -54,6 +54,8 @@ html, body {
   border: 1px solid deeppink;
   background-color: #1a1a1a;
   letter-spacing: 8px;
+  font-weight: bolder;
+  cursor: pointer;
 }
 
 .chat-form {

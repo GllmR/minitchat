@@ -30,7 +30,7 @@ const renderMessage = message => {
   const div = document.createElement('div')
   div.classList.add('render-message')
   if (message.text.split('').join('') !== '') {
-    div.innerHTML = `<li class="message"><span class="time">${message.time}</span> ◀︎ <span class="pseudo"> ${message.name} </span> ▶︎ ${message.text}</li>`
+    div.innerHTML = `<div class="message"><span class="time">${message.time}</span> ◀︎ <span class="pseudo"> ${message.name} </span> ▶︎ ${message.text}</div>`
   }
 
   chatWindow.insertBefore(div, chatWindow.childNodes[0])
