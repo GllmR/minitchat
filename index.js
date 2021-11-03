@@ -23,7 +23,17 @@ MongoClient.connect(url, function(err, db) {
   }
 
   io.on('connection', socket => {
-    console.log('Some client connected')
+    console.log(io.engine.clientsCount)
+
+    socket.on('user', name => {
+      socket.name = name
+
+      socket.on('disconnect', () => {
+        io.emit('leave', socket.name)
+      })
+    })
+
+
     dbo.collection('messages').find({}).toArray((err, res) => {
       if (err) throw err
       io.emit('newUser', res)
@@ -40,10 +50,6 @@ MongoClient.connect(url, function(err, db) {
       socket.on('chat', message => {
         console.log('From server: ', message)
       })
-    })
-
-    socket.on('disconnect', () => {
-      console.log('Someone disconnected')
     })
   })
 

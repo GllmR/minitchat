@@ -59,3 +59,7 @@ const renderMessage = message => {
 socket.on('chat', message => {
   renderMessage(message)
 })
+
+socket.on('leave', usr => {
+  socket.emit('chat', {'name': '<img src="/img/poulet.png" class="icon" />', text: `Au revoir ${usr}`, time: ''})
+})
