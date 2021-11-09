@@ -5,17 +5,14 @@ const msg = document.querySelector('.chat-input')
 const chatWindow = document.querySelector('.chat-window')
 const permission = Notification.requestPermission(function(){})
 let messages
-const MAXI_REGEX = /(([a-z]+:\/\/)?(([a-z0-9\-]+\.)+([a-z]{2}|aero|arpa|biz|com|coop|edu|gov|info|int|jobs|mil|museum|name|nato|net|org|pro|travel|local|internal|fr|io|ml|tk))(:[0-9]{1,5})?(\/[a-z0-9_\-\.~]+)*(\/([a-z0-9_\-\.]*)(\?[a-z0-9+_\-\.%=&amp;]*)?)?(#[a-zA-Z0-9!$&'()*+.=-_~:@/?]*)?)(\s+|$)/gi
+const MAXI_REGEX = /^(http(s)?:\/\/)?(www.)?([a-zA-Z0-9])+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/[^\s]*)?$/gm
 
 let name = document.cookie?.replace(/[=]/ig, '')
 
-function urlToLink(string) {
-  return string.replace(MAXI_REGEX, url => {
-    const adresse = /[a-z]+:\/\//.test(url) ? url : `http://${url}`
-    const newUrl = url.replace(/^https?:\/\//, '')
-
-    return `<a href='${adresse}' target='_blank'>${newUrl}</a>`
-  })
+function urlToLink(text) {
+    return text.replace(MAXI_REGEX, function(url) {
+        return '<a href="' + url + '">' + url + '</a>';
+    })
 }
 
 while (!name) {
