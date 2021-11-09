@@ -35,15 +35,22 @@ chat.addEventListener('submit', event => {
   event.preventDefault()
   const date = new Date()
 
-  socket.emit('chat', {'name': name, 'text': msg.value, time: date.toLocaleString('fr-FR',{month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric'})})
+  if (msg.value.split('').join('').trim() !== '') {
+    socket.emit('chat', {
+      'name': name,
+      'text': msg.value,
+      'time': date.toLocaleString('fr-FR',{month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric'})
+    })
+  }
+
   msg.value = ''
 })
 
 const renderMessage = message => {
   const div = document.createElement('div')
   div.classList.add('render-message')
-  if (message.text.split('').join('') !== '') {
-    div.innerHTML = `<div class="message"><span class="time">${message.time}</span>| <span class="pseudo"> ${message.name} </span> : <span>${message.text}</span></div>`
+  if (message.text !== '') {
+    div.innerHTML = `<div class="message"><span class="time">${message.time}</span>| <span class="pseudo"> ${message.name} </span> : <span>${message.text.trim()}</span></div>`
   }
 
   messages?.push(message)
