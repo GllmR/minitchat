@@ -8,7 +8,7 @@ html, body {
 
 #container {
   position:  absolute;
-  font-family: Courier New;
+  font-family: Hack;
   background-color: black;
   color:  chartreuse;
   height: 95%;
@@ -61,7 +61,7 @@ html, body {
 .chat-form {
   display: flex;
   justify-content: space-around;
-  flex: 1 1 8%;
+  flex: 1 1 5%;
   padding-top:  1em;
 }
 
@@ -95,6 +95,21 @@ html, body {
 
 .icon {
   height:  1.5em;
+}
+
+a {
+  color: fuchsia;
+}
+
+a:visited {
+  color: darkblue;
+}
+
+a:hover {
+  color: deeppink;
+  text-shadow: 0px 0px 5px deeppink;
+  letter-spacing: 2px;
+  transition: border-color .50s ease-in-out,box-shadow .50s ease-in-out, letter-spacing .50s ease-in-out;
 }
 
 textarea:focus, input:focus{
