@@ -9,10 +9,14 @@ const MAXI_REGEX = /^(http(s)?:\/\/)?(www.)?([a-zA-Z0-9])+([\-\.]{1}[a-zA-Z0-9]+
 
 let name = document.cookie?.replace(/[=]/ig, '')
 
-function urlToLink(text) {
-    return text.replace(MAXI_REGEX, function(url) {
-        return '<a href="' + url + '">' + url + '</a>';
-    })
+function urlToLink(message) {
+  return message.replace(MAXI_REGEX, function (url) {
+    let link = url;
+    if (!link.match('^https?:\/\/')) {
+      link = 'http://' + link;
+    }
+    return `<a href="${link}" target="_blank">${url}</a>`
+  })
 }
 
 while (!name) {
