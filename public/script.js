@@ -66,7 +66,7 @@ const renderMessage = message => {
     if (MAXI_REGEX.test(message.text)) {
       msg = urlToLink(message.text.trim())
     } else {
-      msg = message.text.trim()
+      msg = message.text.replaceAll(/<[^>]*>/g, '')
     }
 
     div.innerHTML = `<div class="message"><span class="time">${message.time}</span> | <span class="pseudo"> ${message.name} </span> : <span>${msg}</span></div>`
