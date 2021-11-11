@@ -8,9 +8,14 @@ html, body {
   justify-content:  center;
 }
 
+@font-face {
+  font-family: 'Hack', monospace;
+  src: url(/font/Hack.ttf) format('ttf')
+}
+
 #container {
   position:  absolute;
-  font-family: Hack;
+  font-family: Hack, monospace;
   color:  chartreuse;
   height: 95%;
   width:  100%;
