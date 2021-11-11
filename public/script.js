@@ -47,9 +47,18 @@ chat.addEventListener('submit', event => {
   const date = new Date()
 
   if (msg.value.split('').join('').trim() !== '') {
+    let cleanMessage
+
+    if (MAXI_REGEX.test(msg.value)) {
+      console.log('link')
+      cleanMessage = urlToLink(msg.value.trim())
+    } else {
+      cleanMessage = msg.value.replaceAll(/<[^>]*>/g, '')
+    }
+
     socket.emit('chat', {
       'name': name,
-      'text': msg.value,
+      'text': cleanMessage,
       time: date.toLocaleString('fr-FR',{month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric'})
     })
   }
@@ -60,16 +69,9 @@ chat.addEventListener('submit', event => {
 const renderMessage = message => {
   const div = document.createElement('div')
   div.classList.add('render-message')
+
   if (message.text !== '') {
-    let msg
-
-    if (MAXI_REGEX.test(message.text)) {
-      msg = urlToLink(message.text.trim())
-    } else {
-      msg = message.text.replaceAll(/<[^>]*>/g, '')
-    }
-
-    div.innerHTML = `<div class="message"><span class="time">${message.time}</span> | <span class="pseudo"> ${message.name} </span> : <span>${msg}</span></div>`
+    div.innerHTML = `<div class="message"><span class="time">${message.time}</span> | <span class="pseudo"> ${message.name} </span> : <span>${message.text}</span></div>`
   }
 
   messages?.push(message)
