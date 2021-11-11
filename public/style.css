@@ -125,6 +125,10 @@ textarea:focus, input:focus{
     outline: none;
 }
 
+input[type='text'] {
+  font-family: Hack, monospace;
+}
+
 @media screen and (max-width: 600px) {
   .chat-form {
     flex-direction:  column;
