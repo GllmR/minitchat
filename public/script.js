@@ -20,6 +20,10 @@ function urlToLink(message) {
 }
 
 chatWindow.onclick = e => {
+  if (e.target.href) {
+    return
+  }
+
   if (e.target.className === 'pseudo') {
     msg.value = `‡ ${e.target.innerText} ‡ → `
   } else {
