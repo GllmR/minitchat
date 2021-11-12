@@ -36,7 +36,7 @@ socket.on('newUser', msgs => {
       renderMessage(msg)
     })
 
-    socket.emit('chat', {'name': '<img src="/img/poulet.png" class="icon" />', text: `Bonjour ${name}`, time: ''})
+    socket.emit('chat', {'name': '<img src="/img/poulet.png" class="icon" />', text: `Bonjour <span class="pseudo"> ${name} </span>`, time: ''})
 
     messages = msgs
   }

@@ -31,7 +31,7 @@ MongoClient.connect(url, function(err, db) {
       socket.on('disconnect', () => {
         const msg = {
           'name': '<img src="/img/poulet.png" class="icon" />',
-          text: `Au revoir ${socket.name}`,
+          text: `Au revoir <span class="pseudo"> ${socket.name}  </span>`,
           time: ''
         }
 
