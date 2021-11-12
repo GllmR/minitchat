@@ -59,7 +59,7 @@ chat.addEventListener('submit', event => {
     socket.emit('chat', {
       'name': name,
       'text': cleanMessage,
-      time: date.toLocaleString('fr-FR',{month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric'})
+      time: `${date.toLocaleString('fr-FR',{month: 'numeric', day: 'numeric'})}|${date.toLocaleString('fr-FR',{hour: 'numeric', minute: 'numeric', second: 'numeric'})}`
     })
   }
 
@@ -71,7 +71,7 @@ const renderMessage = message => {
   div.classList.add('render-message')
 
   if (message.text !== '') {
-    div.innerHTML = `<div class="message"><span class="time">${message.time}</span> | <span class="pseudo"> ${message.name} </span> : <span>${message.text}</span></div>`
+    div.innerHTML = `<div class="message"><span class="time">${message.time}</span> ◀︎<span class="pseudo"> ${message.name} </span>▶︎ <span>${message.text}</span></div>`
   }
 
   messages?.push(message)
