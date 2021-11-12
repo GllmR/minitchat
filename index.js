@@ -29,7 +29,17 @@ MongoClient.connect(url, function(err, db) {
       socket.name = name
 
       socket.on('disconnect', () => {
-        io.emit('leave', socket.name)
+        const msg = {
+          'name': '<img src="/img/poulet.png" class="icon" />',
+          text: `Au revoir ${socket.name}`,
+          time: ''
+        }
+
+        dbo.collection('messages').insertOne(msg)
+        dbo.collection('messages').find({}).toArray((err, res) => {
+          if (err) throw err
+          io.emit('leave', res)
+        })
       })
     })
 

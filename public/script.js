@@ -88,6 +88,12 @@ socket.on('chat', message => {
   renderMessage(message)
 })
 
-socket.on('leave', usr => {
-  socket.emit('chat', {'name': '<img src="/img/poulet.png" class="icon" />', text: `Au revoir ${usr}`, time: ''})
+socket.on('leave', msgs => {
+  if (messages?.length !== msgs.length) {
+    msgs.map(msg => {
+      renderMessage(msg)
+    })
+
+    messages = msgs
+  }
 })
