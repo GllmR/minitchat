@@ -19,6 +19,14 @@ function urlToLink(message) {
   })
 }
 
+chatWindow.onclick = e => {
+  if (e.target.className === 'pseudo') {
+    msg.value = `‡ ${e.target.innerText} ‡ → `
+  } else {
+    msg.value = `«${e.target.innerText}» →`
+  }
+}
+
 while (!name) {
   name = prompt('Enter your name')
     .split(' ')
