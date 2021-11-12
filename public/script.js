@@ -78,14 +78,14 @@ const renderMessage = message => {
 
   chatWindow.insertBefore(div, chatWindow.childNodes[0])
   div.scrollTop = 0
-
-  if (permission && document.hidden) {
-    new Notification(message.name, { body: message.text.toString(), icon: './img/poulet.png'})
-  }
 }
 
 socket.on('chat', message => {
   renderMessage(message)
+
+  if (permission && document.hidden) {
+    new Notification(message.name, { body: message.text.toString(), icon: './img/poulet.png'})
+  }
 })
 
 socket.on('leave', msgs => {
