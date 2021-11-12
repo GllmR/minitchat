@@ -15,9 +15,9 @@ MongoClient.connect(url, function(err, db) {
 
   if (!dbo.collection('messages')) {
     console.log('Collection initialisation...')
-    dbo.createCollection("messages", (err, res) => {
+    dbo.createCollection('messages', (err, res) => {
       if (err) throw err
-      console.log("Collection created !")
+      console.log('Collection created !')
       db.close()
     })
   }
@@ -41,7 +41,7 @@ MongoClient.connect(url, function(err, db) {
 
     socket.on('chat', message => {
       console.log('From client: ', message)
-      dbo.collection("messages").insertOne(message, (err, res) => {
+      dbo.collection('messages').insertOne(message, (err, res) => {
         if (err)  throw err
       })
 
