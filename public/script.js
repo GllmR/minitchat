@@ -19,6 +19,19 @@ function urlToLink(message) {
   })
 }
 
+function renderMessage(message) {
+  const div = document.createElement('div')
+  div.classList.add('render-message')
+
+  if (message.text !== '') {
+    div.innerHTML = `<div class="message"><span class="time">${message.time}</span> ◀︎<span class="pseudo"> ${message.name} </span>▶︎ <span>${message.text}</span></div>`
+  }
+
+  messages?.push(message)
+
+  chatWindow.insertBefore(div, chatWindow.childNodes[0])
+  div.scrollTop = 0
+}
 chatWindow.onclick = e => {
   if (e.target.href) {
     return
@@ -78,19 +91,6 @@ chat.addEventListener('submit', event => {
   msg.value = ''
 })
 
-const renderMessage = message => {
-  const div = document.createElement('div')
-  div.classList.add('render-message')
-
-  if (message.text !== '') {
-    div.innerHTML = `<div class="message"><span class="time">${message.time}</span> ◀︎<span class="pseudo"> ${message.name} </span>▶︎ <span>${message.text}</span></div>`
-  }
-
-  messages?.push(message)
-
-  chatWindow.insertBefore(div, chatWindow.childNodes[0])
-  div.scrollTop = 0
-}
 
 socket.on('chat', message => {
   renderMessage(message)
