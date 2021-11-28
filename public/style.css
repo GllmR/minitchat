@@ -95,6 +95,27 @@ html, body {
   background-color: black;
 }
 
+.notifications {
+  position: fixed;
+  right: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 666;
+}
+
+.notification {
+  display: visible;
+  font-family: Hack;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 1em;
+  margin: .5em;
+  color: deeppink;
+  border: 1px solid deeppink;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px deeppink;
+}
+
 .pseudo {
   color:  deeppink;
 }
@@ -106,6 +127,10 @@ html, body {
 
 .icon {
   height:  1em;
+}
+
+.hidden {
+  display: none;
 }
 
 a {

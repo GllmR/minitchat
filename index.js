@@ -12,6 +12,7 @@ app.use(express.static(path.join(__dirname + '/public')))
 MongoClient.connect(url, function(err, db) {
   if (err) throw err
   const dbo = db.db('miniChat')
+  let users = []
 
   if (!dbo.collection('messages')) {
     console.log('Collection initialisation...')
@@ -27,26 +28,21 @@ MongoClient.connect(url, function(err, db) {
 
     socket.on('user', name => {
       socket.name = name
+      users.push(name)
+      io.emit('newUser', name)
+      console.log(users)
 
       socket.on('disconnect', () => {
-        const msg = {
-          'name': '<img src="/img/poulet.png" class="icon" />',
-          text: `Au revoir <span class="pseudo"> ${socket.name}  </span>`,
-          time: ''
-        }
-
-        dbo.collection('messages').insertOne(msg)
-        dbo.collection('messages').find({}).toArray((err, res) => {
-          if (err) throw err
-          io.emit('leave', res)
-        })
+        io.emit('leave', socket.name)
+        users = users.filter(u => u !== socket.name)
+        console.log(users)
       })
     })
 
 
     dbo.collection('messages').find({}).toArray((err, res) => {
       if (err) throw err
-      io.emit('newUser', res)
+      io.emit('setMessages', res)
    })
 
     socket.on('chat', message => {

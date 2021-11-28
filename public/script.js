@@ -3,6 +3,7 @@ const socket = io()
 const chat = document.querySelector('.chat-form')
 const msg = document.querySelector('.chat-input')
 const chatWindow = document.querySelector('.chat-window')
+const notifications = document.querySelector('.notifications')
 const permission = Notification.requestPermission(function(){})
 let messages
 const MAXI_REGEX = /^(http(s)?:\/\/)?(www.)?([a-zA-Z0-9])+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/[^\s]*)?$/gm
@@ -59,13 +60,11 @@ while (!name) {
 
 socket.emit('user', name)
 
-socket.on('newUser', msgs => {
+socket.on('setMessages', msgs => {
   if (messages?.length !== msgs.length) {
     msgs.map(msg => {
       renderMessage(msg)
     })
-
-    socket.emit('chat', {'name': '<img src="/img/poulet.png" class="icon" />', text: `Bonjour <span class="pseudo"> ${name} </span>`, time: ''})
 
     messages = msgs
   }
@@ -95,7 +94,6 @@ chat.addEventListener('submit', event => {
   msg.value = ''
 })
 
-
 socket.on('chat', message => {
   renderMessage(message)
 
@@ -104,12 +102,26 @@ socket.on('chat', message => {
   }
 })
 
-socket.on('leave', msgs => {
-  if (messages?.length !== msgs.length) {
-    msgs.map(msg => {
-      renderMessage(msg)
-    })
+socket.on('newUser', name => {
+  const notification = document.createElement('div')
+  notification.classList.add('notification')
+  notification.innerHTML = (`👋 Bonjour ${name}`)
+  notifications.appendChild(notification)
+  setTimeout(() => {
+    notification.innerHTML = ''
+    notification.classList.add('hidden')
+    notification.remove()
+  }, 3000)
+})
 
-    messages = msgs
-  }
+socket.on('leave', name => {
+  const notification = document.createElement('div')
+  notification.classList.add('notification')
+  notification.innerText = (`👋 Au revoir ${name}`)
+  notifications.appendChild(notification)
+  setTimeout(() => {
+    notification.innerHTML = ''
+    notification.classList.add('hidden')
+    notification.remove()
+  }, 3000)
 })
