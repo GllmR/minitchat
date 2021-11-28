@@ -38,6 +38,18 @@ function renderMessage(message) {
   div.scrollTop = 0
 }
 
+function sendNotification(string, time) {
+  const notification = document.createElement('div')
+  notification.classList.add('notification')
+  notification.innerHTML = (string)
+  notifications.appendChild(notification)
+  setTimeout(() => {
+    notification.innerHTML = ''
+    notification.classList.add('hidden')
+    notification.remove()
+  }, time | 3000)
+}
+
 chatWindow.onclick = e => {
   if (e.target.href) {
     return
@@ -105,25 +117,9 @@ socket.on('chat', message => {
 })
 
 socket.on('newUser', name => {
-  const notification = document.createElement('div')
-  notification.classList.add('notification')
-  notification.innerHTML = (`👋 Bonjour ${name}`)
-  notifications.appendChild(notification)
-  setTimeout(() => {
-    notification.innerHTML = ''
-    notification.classList.add('hidden')
-    notification.remove()
-  }, 3000)
+  sendNotification(`👋 Bonjour ${name}`)
 })
 
 socket.on('leave', name => {
-  const notification = document.createElement('div')
-  notification.classList.add('notification')
-  notification.innerText = (`👋 Au revoir ${name}`)
-  notifications.appendChild(notification)
-  setTimeout(() => {
-    notification.innerHTML = ''
-    notification.classList.add('hidden')
-    notification.remove()
-  }, 3000)
+  sendNotification(`👋 Au revoir ${name}`)
 })
