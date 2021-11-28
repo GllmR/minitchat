@@ -37,6 +37,7 @@ function renderMessage(message) {
   chatWindow.insertBefore(div, chatWindow.childNodes[0])
   div.scrollTop = 0
 }
+
 chatWindow.onclick = e => {
   if (e.target.href) {
     return
@@ -45,8 +46,10 @@ chatWindow.onclick = e => {
   if (e.target.className === 'pseudo') {
     msg.value = `‡ ${e.target.innerText} ‡ → `
   } else {
-    msg.value = `«${e.target.innerText}» →`
+    msg.value = `«${e.target.innerText}» → `
   }
+
+  msg.focus()
 }
 
 while (!name) {
@@ -78,7 +81,6 @@ chat.addEventListener('submit', event => {
     let cleanMessage
 
     if (MAXI_REGEX.test(msg.value)) {
-      console.log('link')
       cleanMessage = urlToLink(msg.value.trim())
     } else {
       cleanMessage = msg.value.replaceAll(/<[^>]*>/g, '')
