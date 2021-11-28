@@ -19,6 +19,10 @@ function urlToLink(message) {
   })
 }
 
+function formatDate(date) {
+  return `${date.toLocaleString('fr-FR',{month: 'numeric', day: 'numeric'})}|${date.toLocaleString('fr-FR',{hour: 'numeric', minute: 'numeric', second: 'numeric'})}`
+}
+
 function renderMessage(message) {
   const div = document.createElement('div')
   div.classList.add('render-message')
@@ -84,7 +88,7 @@ chat.addEventListener('submit', event => {
     socket.emit('chat', {
       'name': name,
       'text': cleanMessage,
-      time: `${date.toLocaleString('fr-FR',{month: 'numeric', day: 'numeric'})}|${date.toLocaleString('fr-FR',{hour: 'numeric', minute: 'numeric', second: 'numeric'})}`
+      time: formatDate(date)
     })
   }
 
