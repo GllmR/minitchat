@@ -8,7 +8,25 @@ const permission = Notification.requestPermission(function(){})
 let messages
 const MAXI_REGEX = /^(http(s)?:\/\/)?(www.)?([a-zA-Z0-9])+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/[^\s]*)?$/gm
 
-let name = document.cookie?.replace(/[=]/ig, '')
+let name = document.cookie?.replace(/[=]/ig, '') || null
+
+chatWindow.onclick = e => {
+  if (e.target.href) {
+    return
+  }
+
+  if (e.target.className === 'pseudo') {
+    msg.value = `‡ ${e.target.innerText} ‡ → `
+  } else {
+    msg.value = `«${e.target.innerText}» → `
+  }
+
+  msg.focus()
+}
+
+function formatDate(date) {
+  return `${date.toLocaleString('fr-FR',{month: 'numeric', day: 'numeric'})}|${date.toLocaleString('fr-FR',{hour: 'numeric', minute: 'numeric', second: 'numeric'})}`
+}
 
 function urlToLink(message) {
   return message.replace(MAXI_REGEX, function (url) {
@@ -20,8 +38,16 @@ function urlToLink(message) {
   })
 }
 
-function formatDate(date) {
-  return `${date.toLocaleString('fr-FR',{month: 'numeric', day: 'numeric'})}|${date.toLocaleString('fr-FR',{hour: 'numeric', minute: 'numeric', second: 'numeric'})}`
+function sendNotification(string, time) {
+  const notification = document.createElement('div')
+  notification.classList.add('notification')
+  notification.innerHTML = (string)
+  notifications.appendChild(notification)
+  setTimeout(() => {
+    notification.innerHTML = ''
+    notification.classList.add('hidden')
+    notification.remove()
+  }, time || 3000)
 }
 
 function renderMessage(message) {
@@ -38,53 +64,45 @@ function renderMessage(message) {
   div.scrollTop = 0
 }
 
-function sendNotification(string, time) {
-  const notification = document.createElement('div')
-  notification.classList.add('notification')
-  notification.innerHTML = (string)
-  notifications.appendChild(notification)
-  setTimeout(() => {
-    notification.innerHTML = ''
-    notification.classList.add('hidden')
-    notification.remove()
-  }, time | 3000)
+function miniChat(socket) {
+  socket.emit('user', name)
+
+  socket.on('setMessages', msgs => {
+    if (messages?.length !== msgs.length) {
+      msgs.map(msg => {
+        renderMessage(msg)
+      })
+
+      messages = msgs
+    }
+  })
+
+  socket.on('chat', message => {
+    renderMessage(message)
+
+    if (permission && document.hidden) {
+      new Notification(message.name, { body: message.text.toString(), icon: './img/poulet.png'})
+    }
+  })
+
+  socket.on('newUser', name => {
+    sendNotification(`👋 Bonjour ${name}`)
+  })
+
+  socket.on('leave', name => {
+    sendNotification(`👋 Au revoir ${name}`)
+  })
 }
 
-chatWindow.onclick = e => {
-  if (e.target.href) {
-    return
-  }
-
-  if (e.target.className === 'pseudo') {
-    msg.value = `‡ ${e.target.innerText} ‡ → `
-  } else {
-    msg.value = `«${e.target.innerText}» → `
-  }
-
-  msg.focus()
-}
-
-while (!name) {
+if (!name) {
   name = prompt('Enter your name')
     .split(' ')
     .join('')
     .replace(/[aeiouy]/ig, '')
-    
+
   document.cookie = name
   window.location.reload() // 🤷
 }
-
-socket.emit('user', name)
-
-socket.on('setMessages', msgs => {
-  if (messages?.length !== msgs.length) {
-    msgs.map(msg => {
-      renderMessage(msg)
-    })
-
-    messages = msgs
-  }
-})
 
 chat.addEventListener('submit', event => {
   event.preventDefault()
@@ -109,18 +127,4 @@ chat.addEventListener('submit', event => {
   msg.value = ''
 })
 
-socket.on('chat', message => {
-  renderMessage(message)
-
-  if (permission && document.hidden) {
-    new Notification(message.name, { body: message.text.toString(), icon: './img/poulet.png'})
-  }
-})
-
-socket.on('newUser', name => {
-  sendNotification(`👋 Bonjour ${name}`)
-})
-
-socket.on('leave', name => {
-  sendNotification(`👋 Au revoir ${name}`)
-})
+miniChat(socket)
