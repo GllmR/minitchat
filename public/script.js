@@ -71,6 +71,7 @@ while (!name) {
     .replace(/[aeiouy]/ig, '')
     
   document.cookie = name
+  window.location.reload() // 🤷
 }
 
 socket.emit('user', name)
