@@ -29,13 +29,11 @@ MongoClient.connect(url, function(err, db) {
     socket.on('user', name => {
       socket.name = name
       users.push(name)
-      io.emit('newUser', name)
-      console.log(users)
+      io.emit('newUser', {name, users})
 
       socket.on('disconnect', () => {
-        io.emit('leave', socket.name)
         users = users.filter(u => u !== socket.name)
-        console.log(users)
+        io.emit('leave', {name: socket.name, users: users})
       })
     })
 

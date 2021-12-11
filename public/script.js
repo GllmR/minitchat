@@ -3,6 +3,7 @@ const socket = io()
 const chat = document.querySelector('.chat-form')
 const msg = document.querySelector('.chat-input')
 const chatWindow = document.querySelector('.chat-window')
+const usersList = document.querySelector('.users-list')
 const notifications = document.querySelector('.notifications')
 const permission = Notification.requestPermission(function(){})
 let messages
@@ -64,6 +65,10 @@ function renderMessage(message) {
   div.scrollTop = 0
 }
 
+function renderUsersList(users) {
+  usersList.innerHTML = users.map(user => ' ' + user)
+}
+
 function miniChat(socket) {
   socket.emit('user', name)
 
@@ -85,12 +90,14 @@ function miniChat(socket) {
     }
   })
 
-  socket.on('newUser', name => {
+  socket.on('newUser', ({name, users}) => {
     sendNotification(`👋 Bonjour ${name}`)
+    renderUsersList(users)
   })
 
-  socket.on('leave', name => {
+  socket.on('leave', ({name, users}) => {
     sendNotification(`👋 Au revoir ${name}`)
+    renderUsersList(users)
   })
 }
 
