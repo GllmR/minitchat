@@ -69,6 +69,21 @@ function renderUsersList(users) {
   usersList.innerHTML = users.map(user => ' ' + user)
 }
 
+function formatMessage(message) {
+  let cleanMessage = message.replaceAll(/<[^>]*>/g, '')
+  let arrayMsg = cleanMessage.split(' ')
+  let linkArray = []
+  arrayMsg.forEach(w => {
+    if (MAXI_REGEX.test(w)) {
+      linkArray.push(urlToLink(w).trim())
+    } else {
+      linkArray.push(w.trim())
+    }
+  })
+
+  return linkArray.join(' ')
+}
+
 function miniChat(socket) {
   socket.emit('user', name)
 
@@ -116,13 +131,7 @@ chat.addEventListener('submit', event => {
   const date = new Date()
 
   if (msg.value.split('').join('').trim() !== '') {
-    let cleanMessage
-
-    if (MAXI_REGEX.test(msg.value)) {
-      cleanMessage = urlToLink(msg.value.trim())
-    } else {
-      cleanMessage = msg.value.replaceAll(/<[^>]*>/g, '')
-    }
+    const cleanMessage = formatMessage(msg.value)
 
     socket.emit('chat', {
       'name': name,
