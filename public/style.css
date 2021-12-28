@@ -104,8 +104,8 @@ html, body {
 }
 
 .notification {
-  display: visible;
-  font-family: Hack;
+  display: block;
+  font-family: Hack, monospace;
   background-color: rgba(0, 0, 0, 0.7);
   padding: 1em;
   margin: .5em;
@@ -113,6 +113,7 @@ html, body {
   border: 1px solid deeppink;
   border-radius: 10px;
   box-shadow: 0px 0px 5px deeppink;
+  z-index: 900;
 }
 
 .users-list {
