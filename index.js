@@ -51,9 +51,9 @@ MongoClient.connect(url, function(err, db) {
 
       io.emit('chat', message)
 
-      socket.on('chat', message => {
-        console.log('From server: ', message)
-      })
+      // socket.on('chat', message => {
+      //   console.log('From server: ', message)
+      // })
     })
   })
 
