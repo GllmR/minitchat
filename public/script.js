@@ -1,3 +1,5 @@
+import {formatMessage, sendNotification, formatDate, urlToLink} from './utils.js'
+
 const socket = io()
 
 const chat = document.querySelector('.chat-form')
@@ -7,9 +9,13 @@ const usersList = document.querySelector('.users-list')
 const notifications = document.querySelector('.notifications')
 const permission = Notification.requestPermission(function(){})
 let messages
-const MAXI_REGEX = /^(http(s)?:\/\/)?(www.)?([a-zA-Z0-9])+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/[^\s]*)?$/gm
 
 let name = document.cookie?.replace(/[=]/ig, '') || null
+
+
+/*####################################
+# Fill input with clicked text or link #
+ #####################################*/
 
 chatWindow.onclick = e => {
   if (e.target.href) {
@@ -25,38 +31,22 @@ chatWindow.onclick = e => {
   msg.focus()
 }
 
-function formatDate(date) {
-  return `${date.toLocaleString('fr-FR',{month: 'numeric', day: 'numeric'})}|${date.toLocaleString('fr-FR',{hour: 'numeric', minute: 'numeric', second: 'numeric'})}`
-}
-
-function urlToLink(message) {
-  return message.replace(MAXI_REGEX, function (url) {
-    let link = url;
-    if (!link.match('^https?:\/\/')) {
-      link = 'http://' + link;
-    }
-    return `<a href="${link}" target="_blank">${url}</a>`
-  })
-}
-
-function sendNotification(string, time) {
-  const notification = document.createElement('div')
-  notification.classList.add('notification')
-  notification.innerHTML = (string)
-  notifications.appendChild(notification)
-  setTimeout(() => {
-    notification.innerHTML = ''
-    notification.classList.add('hidden')
-    notification.remove()
-  }, time || 3000)
-}
+/*###################################################
+# Format & render message line with date and name    #
+# Then push message into chat "chatWindow" container #
+ ####################################################*/
 
 function renderMessage(message) {
   const div = document.createElement('div')
   div.classList.add('render-message')
 
   if (message.text !== '') {
-    div.innerHTML = `<div class="message"><span class="time">${message.time}</span> ◀︎<span class="pseudo"> ${message.name} </span>▶︎ <span>${message.text}</span></div>`
+    div.innerHTML =
+      `<div class="message">
+        <span class="time">
+          ${message.time}
+        </span> ◀︎<span class="pseudo"> ${message.name} </span>▶︎ <span>${message.text}</span>
+      </div>`
   }
 
   messages?.push(message)
@@ -65,28 +55,23 @@ function renderMessage(message) {
   div.scrollTop = 0
 }
 
+/*###############################
+# Display users list under input #
+ ################################*/
+
 function renderUsersList(users) {
   usersList.innerHTML = users.map(user => ' ' + user)
 }
 
-function formatMessage(message) {
-  let cleanMessage = message.replaceAll(/<[^>]*>/g, '')
-  let arrayMsg = cleanMessage.split(' ')
-  let linkArray = []
-  arrayMsg.forEach(w => {
-    if (MAXI_REGEX.test(w)) {
-      linkArray.push(urlToLink(w).trim())
-    } else {
-      linkArray.push(w.trim())
-    }
-  })
-
-  return linkArray.join(' ')
-}
+/*##################
+# M I N I - C H A T #
+ ###################*/
 
 function miniChat(socket) {
+// Send user name to server
   socket.emit('user', name)
 
+// Get messages from server
   socket.on('setMessages', msgs => {
     if (messages?.length !== msgs.length) {
       msgs.map(msg => {
@@ -97,25 +82,29 @@ function miniChat(socket) {
     }
   })
 
+// Update message list on new message
   socket.on('chat', message => {
     renderMessage(message)
 
-    if (permission && document.hidden) {
+    if (permission && document.hidden) { // Check if window focus to send notification
       new Notification(message.name, { body: message.text.toString(), icon: './img/poulet.png'})
     }
   })
 
+// Welcome user notification & update user list
   socket.on('newUser', ({name, users}) => {
-    sendNotification(`👋 Bonjour ${name}`)
+    sendNotification(`👋 Bonjour ${name}`, null, notifications)
     renderUsersList(users)
   })
 
+// Leaving user notification & update user list
   socket.on('leave', ({name, users}) => {
-    sendNotification(`👋 Au revoir ${name}`)
+    sendNotification(`👋 Au revoir ${name}`, null, notifications)
     renderUsersList(users)
   })
 }
 
+// 🍪 Ask for username 𝕱𝕺𝕽𝕰𝖁𝕰𝕽 then 🅡🅔🅛🅞🅐🅓 🤡
 if (!name) {
   name = prompt('Enter your name')
     .split(' ')
@@ -126,6 +115,9 @@ if (!name) {
   window.location.reload() // 🤷
 }
 
+/*#############################################################
+# On submit, clean message, add date then send it to the server #
+ ##############################################################*/
 chat.addEventListener('submit', event => {
   event.preventDefault()
   const date = new Date()
@@ -143,4 +135,5 @@ chat.addEventListener('submit', event => {
   msg.value = ''
 })
 
+// Start mini-chat 🎉
 miniChat(socket)
