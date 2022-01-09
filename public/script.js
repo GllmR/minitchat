@@ -1,4 +1,4 @@
-import {formatMessage, sendNotification, formatDate, urlToLink} from './utils.js'
+import {formatMessage, sendNotification, formatDate, urlToLink, setCookie} from './utils.js'
 
 const socket = io()
 
@@ -125,7 +125,7 @@ function start(){
       name = nameSetter.value.split('').join('').replace(/[aeiouy]/ig, '')
 
       if (name && name !== 'null' && name !== '') {
-        document.cookie = name
+        setCookie('nom', name)
         window.location.reload() // 🤷
       }
     })
