@@ -125,8 +125,8 @@ function start(){
       name = nameSetter.value.split('').join('').replace(/[aeiouy]/ig, '')
 
       if (name && name !== 'null' && name !== '') {
-        setCookie('nom', name)
-        window.location.reload() // 🤷
+        setCookie(name)
+        window.location.reload(true) // 🤷
       }
     })
   }

@@ -54,7 +54,7 @@ export function formatMessage(message) {
   return linkArray.join(' ')
 }
 
-export function setCookie(name, value, days = 7, path = '/') {
+export function setCookie(value, days = 7, path = '/') {
     const expires = new Date(Date.now() + days * 864e5).toUTCString()
-    document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=' + path
+    document.cookie = encodeURIComponent(value) + '; expires=' + expires + '; path=' + path + '; secure;'
 }
