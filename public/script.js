@@ -102,6 +102,8 @@ function miniChat(socket) {
     sendNotification(`👋 Au revoir ${name}`, null, notifications)
     renderUsersList(users)
   })
+// Hello to stalker
+  console.log('%cTu regardes quoi ' + name + ' ?', 'color: deeppink; background-color: black; border: 1px solid lime; font-size: 3vw; margin: 8px;')
 }
 
 // 🍪 Ask for username 𝕱𝕺𝕽𝕰𝖁𝕰𝕽 then 🅡🅔🅛🅞🅐🅓 🤡
