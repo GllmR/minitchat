@@ -68,9 +68,12 @@ function renderUsersList(users) {
 # M I N I - C H A T #
  ###################*/
 
-function miniChat(socket) {
+function miniChat(socket, name) {
 // Send user name to server
   socket.emit('user', name)
+
+  document.getElementById("start").remove()
+  document.getElementById('container').classList.remove('blur')
 
 // Get messages from server
   socket.on('setMessages', msgs => {
@@ -111,9 +114,7 @@ function miniChat(socket) {
 // 🍪 Ask for username 𝕱𝕺𝕽𝕰𝖁𝕰𝕽 then 🅡🅔🅛🅞🅐🅓 🤡
 function start(){
   if (name && name !== 'null') {
-    document.getElementById("start").remove();
-    document.getElementById('container').classList.remove('blur');
-    miniChat(socket)
+    miniChat(socket, name)
   } else {
     prompt.addEventListener('submit', e => {
       e.preventDefault()
@@ -121,7 +122,8 @@ function start(){
 
       if (name && name !== 'null' && name !== '') {
         localStorage.setItem('name', name)
-        window.location.reload(true) // 🤷
+        socket.emit('getMessages')
+        miniChat(socket, name)
       }
     })
   }

@@ -43,6 +43,13 @@ MongoClient.connect(url, function(err, db) {
       io.emit('setMessages', res)
    })
 
+    socket.on('getMessages', () => {
+      dbo.collection('messages').find({}).toArray((err, res) => {
+        if (err) throw err
+        io.emit('setMessages', res)
+      })
+    })
+
     socket.on('chat', message => {
       console.log('From client: ', message)
       dbo.collection('messages').insertOne(message, (err, res) => {
