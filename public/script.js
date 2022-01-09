@@ -3,7 +3,9 @@ import {formatMessage, sendNotification, formatDate, urlToLink} from './utils.js
 const socket = io()
 
 const chat = document.querySelector('.chat-form')
+const prompt = document.querySelector('.chat-prompt')
 const msg = document.querySelector('.chat-input')
+const nameSetter = document.querySelector('.submit-input')
 const chatWindow = document.querySelector('.chat-window')
 const usersList = document.querySelector('.users-list')
 const notifications = document.querySelector('.notifications')
@@ -102,19 +104,32 @@ function miniChat(socket) {
     sendNotification(`👋 Au revoir ${name}`, null, notifications)
     renderUsersList(users)
   })
+
 // Hello to stalker
   console.log('%cTu regardes quoi ' + name + ' ?', 'color: deeppink; background-color: black; border: 1px solid lime; font-size: 3vw; margin: 8px;')
 }
 
 // 🍪 Ask for username 𝕱𝕺𝕽𝕰𝖁𝕰𝕽 then 🅡🅔🅛🅞🅐🅓 🤡
-if (!name) {
-  name = prompt('Enter your name')
-    .split(' ')
-    .join('')
-    .replace(/[aeiouy]/ig, '')
+function start(){
+  if (name && name !== 'null') {
+    document.getElementById("start").remove();
+    document.getElementById('container').classList.remove('blur');
+    miniChat(socket)
+  } else {
+    if (document.cookie) {
+      document.cookie.remove()
+    }
 
-  document.cookie = name
-  window.location.reload() // 🤷
+    prompt.addEventListener('submit', e => {
+      e.preventDefault()
+      name = nameSetter.value.split('').join('').replace(/[aeiouy]/ig, '')
+
+      if (name && name !== 'null' && name !== '') {
+        document.cookie = name
+        window.location.reload() // 🤷
+      }
+    })
+  }
 }
 
 /*#############################################################
@@ -138,4 +153,4 @@ chat.addEventListener('submit', event => {
 })
 
 // Start mini-chat 🎉
-miniChat(socket)
+start()
