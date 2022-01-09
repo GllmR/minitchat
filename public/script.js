@@ -1,4 +1,4 @@
-import {formatMessage, sendNotification, formatDate, urlToLink, setCookie} from './utils.js'
+import {formatMessage, sendNotification, formatDate, urlToLink} from './utils.js'
 
 const socket = io()
 
@@ -9,11 +9,10 @@ const nameSetter = document.querySelector('.submit-input')
 const chatWindow = document.querySelector('.chat-window')
 const usersList = document.querySelector('.users-list')
 const notifications = document.querySelector('.notifications')
-const permission = Notification.requestPermission(function(){})
+const permission = Notification?.requestPermission(function(){})
 let messages
 
-let name = document.cookie?.replace(/[=]/ig, '') || null
-
+let name = localStorage.getItem('name') || null
 
 /*####################################
 # Fill input with clicked text or link #
@@ -116,16 +115,12 @@ function start(){
     document.getElementById('container').classList.remove('blur');
     miniChat(socket)
   } else {
-    if (document.cookie) {
-      document.cookie.remove()
-    }
-
     prompt.addEventListener('submit', e => {
       e.preventDefault()
-      name = nameSetter.value.split('').join('').replace(/[aeiouy]/ig, '')
+      name = nameSetter?.value.split('').join('').replace(/[aeiouy]/ig, '')
 
       if (name && name !== 'null' && name !== '') {
-        setCookie(name)
+        localStorage.setItem('name', name)
         window.location.reload(true) // 🤷
       }
     })
