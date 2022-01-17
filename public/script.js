@@ -9,7 +9,6 @@ const nameSetter = document.querySelector('.submit-input')
 const chatWindow = document.querySelector('.chat-window')
 const usersList = document.querySelector('.users-list')
 const notifications = document.querySelector('.notifications')
-const permission = Notification?.requestPermission(function(){})
 let messages
 
 let name = localStorage.getItem('name') || null
@@ -90,7 +89,7 @@ function miniChat(socket, name) {
   socket.on('chat', message => {
     renderMessage(message)
 
-    if (permission && document.hidden) { // Check if window focus to send notification
+    if (document.hidden && Notification.requestPermission(function(){})) { // Check if window focus to send notification
       new Notification(message.name, { body: message.text.toString(), icon: './img/poulet.png'})
     }
   })
