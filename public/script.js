@@ -13,8 +13,9 @@ let messages
 
 let name = localStorage.getItem('name') || null
 
-/*####################################
+/*#####################################
 # Fill input with clicked text or link #
+# Remove it if you don't like it       #
  #####################################*/
 
 chatWindow.onclick = e => {
@@ -71,7 +72,7 @@ function miniChat(socket, name) {
 // Send user name to server
   socket.emit('user', name)
 
-  document.getElementById("start").remove()
+  document.getElementById('start').remove()
   document.getElementById('container').classList.remove('blur')
 
 // Get messages from server
@@ -110,7 +111,7 @@ function miniChat(socket, name) {
   console.log('%cTu regardes quoi ' + name + ' ?', 'color: deeppink; background-color: black; border: 1px solid lime; font-size: 3vw; margin: 8px;')
 }
 
-// 🍪 Ask for username 𝕱𝕺𝕽𝕰𝖁𝕰𝕽 then 🅡🅔🅛🅞🅐🅓 🤡
+// 🍪 Ask for username 𝕱𝕺𝕽𝕰𝖁𝕰𝕽 👾
 function start(){
   if (name && name !== 'null') {
     miniChat(socket, name)
@@ -128,7 +129,7 @@ function start(){
   }
 }
 
-/*#############################################################
+/*##############################################################
 # On submit, clean message, add date then send it to the server #
  ##############################################################*/
 chat.addEventListener('submit', event => {

@@ -4,7 +4,7 @@ const server = require('http').createServer(app)
 const port = process.env.PORT || 3000
 const io = require('socket.io')(server)
 const MongoClient = require('mongodb').MongoClient
-const url = "mongodb://localhost:27017/"
+const url = 'mongodb://localhost:27017/'
 const path  = require('path')
 
 app.use(express.static(path.join(__dirname + '/public')))
@@ -57,10 +57,6 @@ MongoClient.connect(url, function(err, db) {
       })
 
       io.emit('chat', message)
-
-      // socket.on('chat', message => {
-      //   console.log('From server: ', message)
-      // })
     })
   })
 
