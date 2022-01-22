@@ -64,9 +64,9 @@ function renderUsersList(users) {
   usersList.innerHTML = users.map(user => ' ' + user)
 }
 
-/*##################
-# M I N I - C H A T #
- ###################*/
+/*******************************\
+# |\/| | |\| | ~|~ ( |-| /\ ~|~ *
+\*******************************/
 
 function miniChat(socket, name) {
 // Send user name to server
