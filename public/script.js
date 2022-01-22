@@ -8,6 +8,7 @@ const msg = document.querySelector('.chat-input')
 const nameSetter = document.querySelector('.submit-input')
 const chatWindow = document.querySelector('.chat-window')
 const usersList = document.querySelector('.users-list')
+const emojis = document.querySelector('.chat-btn-container').children
 const notifications = document.querySelector('.notifications')
 let messages
 
@@ -30,6 +31,18 @@ chatWindow.onclick = e => {
   }
 
   msg.focus()
+}
+
+ /************ Emojis event *************\
+* Add onClick on all buttons in container *
+* OnClick set button text to input        *
+ \***************************************/
+
+for (let emoji of emojis) {
+  emoji.onclick = () => {
+    msg.value += ' ' + emoji.textContent + ' '
+    msg.focus()
+  }
 }
 
 /*###################################################

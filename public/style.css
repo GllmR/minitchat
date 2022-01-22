@@ -52,7 +52,7 @@ html, body {
   padding: .5em;
 }
 
-.chat-submit {
+.chat-submit, .chat-btn {
   background-color: black;
   border: solid 1px #6c757d;
   flex: 1;
@@ -64,13 +64,14 @@ html, body {
   transition: border-color .30s ease-in-out,box-shadow .30s ease-in-out, letter-spacing .30s ease-in-out;
 }
 
-.chat-submit:hover {
+.chat-submit:hover, .chat-btn:hover {
   color: deeppink;
   border: 1px solid deeppink;
   background-color: #1a1a1a;
   letter-spacing: 8px;
   font-weight: bolder;
   cursor: pointer;
+  box-shadow: 0px 0px 5px deeppink;
 }
 
 .chat-form {
@@ -97,6 +98,22 @@ html, body {
   height: 88%;
   box-shadow: 0px 0px 5px deeppink;
   background-color: black;
+}
+
+.chat-btn-container {
+  display:  grid;
+  grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+}
+
+.chat-btn {
+  font-size: .7em;
+  background-color: black;
+  border: solid 1px #6c757d;
+  margin: .5em;
+  color:  #6c757d;
+  border-radius: 5px;
+  letter-spacing: 5px;
+  transition: border-color .30s ease-in-out,box-shadow .30s ease-in-out, letter-spacing .30s ease-in-out;
 }
 
 .notifications {
@@ -234,5 +251,9 @@ input[type='text'] {
 @media screen and (max-width: 600px) {
   .chat-form {
     flex-direction:  column;
+  }
+
+  .chat-btn {
+    display: none;
   }
 }
