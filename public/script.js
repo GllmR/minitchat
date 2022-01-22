@@ -53,7 +53,7 @@ function renderMessage(message) {
   messages?.push(message)
 
   chatWindow.insertBefore(div, chatWindow.childNodes[0])
-  div.scrollTop = 0
+  chatWindow.scrollTop = chatWindow.scrollHeight
 }
 
 /*###############################
