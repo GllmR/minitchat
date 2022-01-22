@@ -26,7 +26,7 @@ chatWindow.onclick = e => {
   if (e.target.className === 'pseudo') {
     msg.value = `‡ ${e.target.innerText} ‡ → `
   } else {
-    msg.value = `«${e.target.innerText}» → `
+    msg.value = `« ${e.target.innerText} » → `
   }
 
   msg.focus()
