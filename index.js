@@ -58,6 +58,13 @@ MongoClient.connect(url, function(err, db) {
 
       io.emit('chat', message)
     })
+
+    socket.on('getLinks', () => {
+      dbo.collection('messages').find({"text": {$regex:".*href.*"}}).toArray((err, res) => {
+        if (err) throw err
+        io.emit('allLinks', res)
+      })
+    })
   })
 
   server.listen(port, () => {

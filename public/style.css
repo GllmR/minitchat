@@ -80,7 +80,7 @@ html, body {
   flex: 1 1 6%;
 }
 
-.chat-window {
+.chat-window, .links-window {
   overflow: hidden auto;
   display:  flex;
   flex-direction: column-reverse;
