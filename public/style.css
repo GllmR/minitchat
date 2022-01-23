@@ -233,6 +233,15 @@ a:hover {
   transition: border-color .50s ease-in-out,box-shadow .50s ease-in-out, letter-spacing .50s ease-in-out;
 }
 
+.liens, .liens:visited {
+  position:  fixed;
+  top: 0;
+  right: 0;
+  padding: .5em;
+  z-index: 2;
+  color: #1a1a1a;
+}
+
 textarea:focus, input:focus{
     outline: none;
 }
