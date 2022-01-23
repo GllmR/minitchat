@@ -163,8 +163,9 @@ html, body {
 }
 
 .title {
-  display: flex;
   color:  limegreen;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   padding-top: .5em;
   height: 8%;
