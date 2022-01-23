@@ -8,7 +8,7 @@ const msg = document.querySelector('.chat-input')
 const nameSetter = document.querySelector('.submit-input')
 const chatWindow = document.querySelector('.chat-window')
 const usersList = document.querySelector('.users-list')
-const emojis = document.querySelector('.chat-btn-container').children
+const emojis = document.querySelectorAll('.chat-btn')
 const notifications = document.querySelector('.notifications')
 let messages
 
