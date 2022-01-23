@@ -38,13 +38,13 @@ MongoClient.connect(url, function(err, db) {
     })
 
 
-    dbo.collection('messages').find({}).toArray((err, res) => {
+    dbo.collection('messages').find({}).sort({_id: -1}).limit(100).toArray((err, res) => {
       if (err) throw err
       io.emit('setMessages', res)
    })
 
     socket.on('getMessages', () => {
-      dbo.collection('messages').find({}).toArray((err, res) => {
+      dbo.collection('messages').find({}).sort({_id: -1}).limit(100).toArray((err, res) => {
         if (err) throw err
         io.emit('setMessages', res)
       })

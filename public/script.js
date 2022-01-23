@@ -91,7 +91,7 @@ function miniChat(socket, name) {
 // Get messages from server
   socket.on('setMessages', msgs => {
     if (messages?.length !== msgs.length) {
-      msgs.map(msg => {
+      msgs.reverse().map(msg => {
         renderMessage(msg)
       })
 
