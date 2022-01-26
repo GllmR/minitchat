@@ -15,6 +15,34 @@ html, body {
   src: url(/font/Hack.ttf) format('ttf')
 }
 
+pre {
+  font-size: 8px;
+  text-align: center;
+}
+
+a {
+  color: fuchsia;
+}
+
+a:visited {
+  color: darkblue;
+}
+
+a:hover {
+  color: deeppink;
+  text-shadow: 0px 0px 5px deeppink;
+  letter-spacing: 2px;
+  transition: border-color .50s ease-in-out,box-shadow .50s ease-in-out, letter-spacing .50s ease-in-out;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+input[type='text'] {
+  font-family: Hack, monospace;
+}
+
 #container {
   position:  absolute;
   font-family: Hack, monospace;
@@ -23,6 +51,32 @@ html, body {
   width:  100%;
   max-width: 1200px;
   contain:  content;
+}
+
+#chat-section {
+  border: 1px solid deeppink;
+  border-radius: 10px;
+  margin: .5em 1em;
+  padding: 0 1em;
+  display: flex;
+  flex-direction: column;
+  height: 88%;
+  box-shadow: 0px 0px 5px deeppink;
+  background-color: black;
+}
+
+#start {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(255,255,255, 0.2);
+  align-items:  center;
+  z-index: 999;
 }
 
 .chat-input, .submit-input {
@@ -88,16 +142,13 @@ html, body {
   padding: .5em;
 }
 
-#chat-section {
-  border: 1px solid deeppink;
-  border-radius: 10px;
-  margin: .5em 1em;
-  padding: 0 1em;
-  display: flex;
-  flex-direction: column;
-  height: 88%;
-  box-shadow: 0px 0px 5px deeppink;
-  background-color: black;
+.liens, .liens:visited {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: .5em;
+  z-index: 2;
+  color: #1a1a1a;
 }
 
 .chat-btn-container {
@@ -183,10 +234,10 @@ html, body {
 .prompt {
   display: block;
   width:  70%;
+  max-width: 500px;
   font-family: Hack, monospace;
   background-color: rgba(0, 0, 0, 0.7);
   padding: 1em;
-  margin: .5em;
   color: deeppink;
   border: 1px solid deeppink;
   border-radius: 10px;
@@ -197,57 +248,6 @@ html, body {
   display: flex;
   flex-direction: column;
   width: 100%;
-}
-
-#start {
-  height: 100vh;
-  width: 100vw;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background-color: rgba(255,255,255, 0.2);
-  align-items:  center;
-  z-index: 999;
-}
-
-pre {
-  font-size: 5px;
-  text-align: center;
-}
-
-a {
-  color: fuchsia;
-}
-
-a:visited {
-  color: darkblue;
-}
-
-a:hover {
-  color: deeppink;
-  text-shadow: 0px 0px 5px deeppink;
-  letter-spacing: 2px;
-  transition: border-color .50s ease-in-out,box-shadow .50s ease-in-out, letter-spacing .50s ease-in-out;
-}
-
-.liens, .liens:visited {
-  position:  fixed;
-  top: 0;
-  right: 0;
-  padding: .5em;
-  z-index: 2;
-  color: #1a1a1a;
-}
-
-textarea:focus, input:focus{
-    outline: none;
-}
-
-input[type='text'] {
-  font-family: Hack, monospace;
 }
 
 @keyframes shadow {
