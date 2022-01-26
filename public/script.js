@@ -14,12 +14,12 @@ let messages
 
 let name = localStorage.getItem('name') || null
 
-/*#####################################
-# Fill input with clicked text or link #
-# Remove it if you don't like it       #
- #####################################*/
+/*#############################################
+# Fill input with double-clicked text or link #
+# Remove it if you don't like it              #
+ ############################################*/
 
-chatWindow.onclick = e => {
+chatWindow.ondblclick = e => {
   if (e.target.href) {
     return
   }
