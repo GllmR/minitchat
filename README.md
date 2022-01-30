@@ -42,3 +42,7 @@ Clone this repo, then the classic :
 
 And start it : 
 `npm run minitchat`
+
+
+### Screenshot :
+![image](https://user-images.githubusercontent.com/56537238/151720109-36a0fca6-2541-496a-90a4-7f622e8e8142.png)
