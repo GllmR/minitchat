@@ -1,14 +1,15 @@
 {
-  "name": "chat-node-socket",
+  "name": "MINITCHAT",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simple Cool Chat in NodeJs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node minitchat",
+    "minitchat": "node minitchat"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "GllmR",
+  "license": "GPL3",
   "dependencies": {
     "express": "^4.17.1",
     "mongodb": "^4.1.3",
