@@ -10,6 +10,7 @@ const chatWindow = document.querySelector('.chat-window')
 const usersList = document.querySelector('.users-list')
 const emojis = document.querySelectorAll('.chat-btn')
 const notifications = document.querySelector('.notifications')
+let messages
 
 // Check if a name is in the localstorage
 let name = localStorage.getItem('name') || null
@@ -67,14 +68,20 @@ function miniChat(socket, name) {
 
 // Get messages from server
   socket.on('setMessages', msgs => {
-    msgs.forEach(msg => {
-      chatWindow.insertBefore(renderMessage(msg), chatWindow.childNodes[0])
-      chatWindow.scrollTop = chatWindow.scrollHeight
-    })
+    if (messages?.length !== msgs.length) {
+      msgs.forEach(msg => {
+        chatWindow.insertBefore(renderMessage(msg), chatWindow.childNodes[0])
+        chatWindow.scrollTop = chatWindow.scrollHeight
+      })
+    }
+
+    messages = msgs
   })
 
 // Update message list on new message
   socket.on('chat', message => {
+    messages?.push(message)
+
     chatWindow.insertBefore(renderMessage(message), chatWindow.childNodes[0])
     chatWindow.scrollTop = chatWindow.scrollHeight
 
