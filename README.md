@@ -7,8 +7,10 @@
 _A cool chat in NodeJs_
 
 ### Features : 
+- No connexion, no password, no email, nothing
 - Display last messages 
 - Highlight links automatically
+- Display connected users list
 - System notifications 
 - Double click to quote
 - Kaomojis (\*-\*) 
@@ -27,11 +29,14 @@ Logo made by (b‿g) _aka GröbêtaTesteur_
 _Example for raspberry pi :_    
 Install NodeJs :    
 
-`curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -` 
+```bash
+curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+```
 
 Install MongoDB :   
-``` 
+```bash
 wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+
 echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
 
 sudo apt-get update
@@ -40,10 +45,14 @@ sudo systemctl enable mongod
 sudo systemctl start mongod
 ```
 Clone this repo, then the classic : 
-`npm install`
+```bash
+npm install
+```
 
 And start it : 
-`npm run minitchat`
+```bash 
+npm run minitchat
+```
 or deploy with nginx and pm2
 
 
