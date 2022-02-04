@@ -48,7 +48,7 @@ MongoClient.connect(url, (err, db) => {
     })
 
 // Send messages to client
-    dbo.collection('messages').find({}).sort({_id: -1}).limit(100).toArray((err, res) => {
+    dbo.collection('messages').find({}).sort({_id: 1}).limit(100).toArray((err, res) => {
       if (err) {
         throw err
       }
@@ -57,7 +57,7 @@ MongoClient.connect(url, (err, db) => {
     })
 
     socket.on('getMessages', () => {
-      dbo.collection('messages').find({}).sort({_id: -1}).limit(100).toArray((err, res) => {
+      dbo.collection('messages').find({}).sort({_id: 1}).limit(100).toArray((err, res) => {
         if (err) {
           throw err
         }
@@ -79,7 +79,7 @@ MongoClient.connect(url, (err, db) => {
 
 // Get all messages conataining "href"
     socket.on('getLinks', () => {
-      dbo.collection('messages').find({text: {$regex: '.*href.*'}}).toArray((err, res) => {
+      dbo.collection('messages').find({text: {$regex: '.*href.*'}}).sort({_id: -1}).toArray((err, res) => {
         if (err) {
           throw err
         }

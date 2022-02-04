@@ -14,14 +14,13 @@ function renderLinks(link) {
     </div>`
 
   linksWindow.appendChild(div)
-  linksWindow.scrollTop = - linksWindow.scrollHeight
 }
 
 
 socket.emit('getLinks')
 
 socket.on('allLinks', links => {
-	links.forEach(link => {
-		renderLinks(link)
-	})
+  links.forEach(link => {
+    renderLinks(link)
+  })
 })

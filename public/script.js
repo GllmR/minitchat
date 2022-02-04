@@ -67,7 +67,7 @@ function miniChat(socket, name) {
 
 // Get messages from server
   socket.on('setMessages', msgs => {
-    msgs.reverse().forEach(msg => {
+    msgs.forEach(msg => {
       chatWindow.insertBefore(renderMessage(msg), chatWindow.childNodes[0])
       chatWindow.scrollTop = chatWindow.scrollHeight
     })

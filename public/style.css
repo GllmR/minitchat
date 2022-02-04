@@ -143,6 +143,10 @@ input[type='text'] {
   scrollbar-color: chartreuse #1a1a1a;
 }
 
+.links-window {
+  flex-direction: column;
+}
+
 .chat-window::-webkit-scrollbar, .links-window::-webkit-scrollbar {
   width: 3px;
   padding: 1em;
