@@ -1,4 +1,4 @@
-import {formatMessage, sendNotification, formatDate, urlToLink} from './utils.js'
+import {formatMessage, sendNotification, formatDate, urlToLink, renderMessage} from './utils.js'
 
 const socket = io()
 
@@ -45,30 +45,6 @@ for (let emoji of emojis) {
   }
 }
 
-/*###################################################
-# Format & render message line with date and name    #
-# Then push message into chat "chatWindow" container #
- ####################################################*/
-
-function renderMessage(message) {
-  const div = document.createElement('div')
-  div.classList.add('render-message')
-
-  if (message.text !== '') {
-    div.innerHTML =
-      `<div class="message">
-        <span class="time">
-          ${message.time}
-        </span> ◀︎<span class="pseudo"> ${message.name} </span>▶︎ <span>${message.text}</span>
-      </div>`
-  }
-
-  messages?.push(message)
-
-  chatWindow.insertBefore(div, chatWindow.childNodes[0])
-  chatWindow.scrollTop = chatWindow.scrollHeight
-}
-
 /*###############################
 # Display users list under input #
  ################################*/
@@ -85,23 +61,22 @@ function miniChat(socket, name) {
 // Send user name to server
   socket.emit('user', name)
 
+// Remove blur class && prompt div
   document.getElementById('start').remove()
   document.getElementById('container').classList.remove('blur')
 
 // Get messages from server
   socket.on('setMessages', msgs => {
-    if (messages?.length !== msgs.length) {
-      msgs.reverse().map(msg => {
-        renderMessage(msg)
-      })
-
-      messages = msgs
-    }
+    msgs.reverse().map(msg => {
+      chatWindow.insertBefore(renderMessage(msg), chatWindow.childNodes[0])
+      chatWindow.scrollTop = chatWindow.scrollHeight
+    })
   })
 
 // Update message list on new message
   socket.on('chat', message => {
-    renderMessage(message)
+    chatWindow.insertBefore(renderMessage(message), chatWindow.childNodes[0])
+    chatWindow.scrollTop = chatWindow.scrollHeight
 
     if (document.hidden && Notification.requestPermission(function(){})) { // Check if window focus to send notification
       new Notification(message.name, { body: message.text.toString(), icon: './img/poulet.png'})

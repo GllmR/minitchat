@@ -53,3 +53,17 @@ export function formatMessage(message) {
 
   return linkArray.join(' ')
 }
+
+// Render message line with date and name
+export function renderMessage(message) {
+  const div = document.createElement('div')
+  div.classList.add('render-message')
+  div.innerHTML =
+    `<div class="message">
+      <span class="time">
+        ${message.time}
+      </span> ◀︎<span class="pseudo"> ${message.name} </span>▶︎ <span>${message.text}</span>
+    </div>`
+
+    return div
+}
