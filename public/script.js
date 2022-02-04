@@ -20,7 +20,7 @@ let name = localStorage.getItem('name') || null
  ############################################*/
 
 chatWindow.ondblclick = e => {
-  if (e.target.href) {
+  if (e.target.href || e.target.className === 'chat-window') {
     return
   }
 
