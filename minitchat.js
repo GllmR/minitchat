@@ -14,7 +14,7 @@ MongoClient.connect(url, (err, db) => {
     throw err
   }
 
-  const dbo = db.db('miniChat')
+  const dbo = db.db('minitchat')
   let users = []
 
 // check if database exists, if not create it
