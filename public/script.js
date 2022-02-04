@@ -25,9 +25,9 @@ chatWindow.ondblclick = e => {
   }
 
   if (e.target.className === 'pseudo') {
-    msg.value = `‡ ${e.target.textContent} ‡ → `
+    msg.value = `‡ ${e.target.innerText} ‡ → `
   } else {
-    msg.value = `« ${e.target.textContent} » → `
+    msg.value = `« ${e.target.innerText} » → `
   }
 
   msg.focus()
@@ -39,10 +39,10 @@ chatWindow.ondblclick = e => {
  \***************************************/
 
 for (const emoji of emojis) {
-  emoji.addEventListener('onclick', () => {
+  emoji.onclick = () => {
     msg.value += ' ' + emoji.textContent + ' '
     msg.focus()
-  })
+  }
 }
 
 /*###############################
