@@ -60,7 +60,7 @@ input[type='text'] {
   padding: 0 1em;
   display: flex;
   flex-direction: column;
-  height: 88%;
+  height: 85%;
   box-shadow: 0px 0px 5px deeppink;
   background-color: black;
 }
@@ -131,14 +131,12 @@ input[type='text'] {
 .chat-form {
   display: flex;
   justify-content: space-around;
-  flex: 1 1 6%;
 }
 
 .chat-window, .links-window {
   overflow: hidden auto;
   display:  flex;
   flex-direction: column-reverse;
-  flex: 1 1 95%;
   padding: .5em;
   scrollbar-width: auto;
   scrollbar-color: chartreuse #1a1a1a;
@@ -235,7 +233,7 @@ input[type='text'] {
   flex-direction: column;
   justify-content: center;
   padding-top: .5em;
-  height: 8%;
+  height: 10%;
   animation-name:shadow;
   animation-duration: 5s;
   animation-iteration-count: infinite;
