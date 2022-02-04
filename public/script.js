@@ -10,8 +10,8 @@ const chatWindow = document.querySelector('.chat-window')
 const usersList = document.querySelector('.users-list')
 const emojis = document.querySelectorAll('.chat-btn')
 const notifications = document.querySelector('.notifications')
-let messages
 
+// Check if a name is in the localstorage
 let name = localStorage.getItem('name') || null
 
 /*#############################################
@@ -99,8 +99,8 @@ function miniChat(socket, name) {
   console.log('%cTu regardes quoi ' + name + ' ?', 'color: deeppink; background-color: black; border: 1px solid lime; font-size: 3vw; margin: 8px;')
 }
 
-// 🍪 Ask for username 𝕱𝕺𝕽𝕰𝖁𝕰𝕽 👾
-function start(){
+// 🍪 Ask for username 𝕱 𝕺 𝕽 𝕰 𝖁 𝕰 𝕽 👾
+function start() {
   if (name && name !== 'null') {
     miniChat(socket, name)
   } else {
