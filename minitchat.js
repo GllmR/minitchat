@@ -14,6 +14,7 @@ MongoClient.connect(url, function(err, db) {
   const dbo = db.db('miniChat')
   let users = []
 
+// check if database exists, if not create it
   if (!dbo.collection('messages')) {
     console.log('Collection initialisation...')
     dbo.createCollection('messages', (err, res) => {
@@ -24,8 +25,11 @@ MongoClient.connect(url, function(err, db) {
   }
 
   io.on('connection', socket => {
+// Display  number of connected users 
     console.log(io.engine.clientsCount)
 
+// On user connexion, add name to names array
+// Then send name & user list to client
     socket.on('user', name => {
       socket.name = name
       users.push(name)
@@ -37,7 +41,7 @@ MongoClient.connect(url, function(err, db) {
       })
     })
 
-
+// Send messages to client
     dbo.collection('messages').find({}).sort({_id: -1}).limit(100).toArray((err, res) => {
       if (err) throw err
       io.emit('setMessages', res)
@@ -59,6 +63,7 @@ MongoClient.connect(url, function(err, db) {
       io.emit('chat', message)
     })
 
+// Get all messages conataining "href"
     socket.on('getLinks', () => {
       dbo.collection('messages').find({"text": {$regex:".*href.*"}}).toArray((err, res) => {
         if (err) throw err
