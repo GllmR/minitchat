@@ -4,27 +4,29 @@
 ██  ██  ██ ██ ██  ████ ██   ██   █████ ██  ██ ██  ██   ██  
 ``` 
 
-_A super simple cool chat in NodeJs_
+_A cool chat in NodeJs_
 
 ### Features : 
 - Display last messages 
 - Highlight links automatically
 - System notifications 
 - Double click to quote
-- Kaomojis (*-*) 
+- Kaomojis (\*-\*) 
 - Page displaying all links posted on the minitchat
 - Remove vowels from nickname
+- Responsive
 
 ---
 
-Logo made by (b‿g) 
+Logo made by (b‿g) _aka GröbêtaTesteur_
 
 ---
 
 ### Installation :   
-**You need NodeJs & MongoDB**   
+#### **You need NodeJs & MongoDB**   
 _Example for raspberry pi :_    
 Install NodeJs :    
+
 `curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -` 
 
 Install MongoDB :   
@@ -42,6 +44,7 @@ Clone this repo, then the classic :
 
 And start it : 
 `npm run minitchat`
+or deploy with nginx and pm2
 
 
 ### Screenshot :
