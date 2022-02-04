@@ -1,4 +1,4 @@
-import {formatMessage, sendNotification, formatDate, urlToLink, renderMessage} from './utils.js'
+import {formatMessage, sendNotification, formatDate, renderMessage} from './utils.js'
 
 const socket = io()
 
@@ -25,9 +25,9 @@ chatWindow.ondblclick = e => {
   }
 
   if (e.target.className === 'pseudo') {
-    msg.value = `‡ ${e.target.innerText} ‡ → `
+    msg.value = `‡ ${e.target.textContent} ‡ → `
   } else {
-    msg.value = `« ${e.target.innerText} » → `
+    msg.value = `« ${e.target.textContent} » → `
   }
 
   msg.focus()
@@ -38,11 +38,11 @@ chatWindow.ondblclick = e => {
 * OnClick set button text to input        *
  \***************************************/
 
-for (let emoji of emojis) {
-  emoji.onclick = () => {
+for (const emoji of emojis) {
+  emoji.addEventListener('onclick', () => {
     msg.value += ' ' + emoji.textContent + ' '
     msg.focus()
-  }
+  })
 }
 
 /*###############################
@@ -62,12 +62,12 @@ function miniChat(socket, name) {
   socket.emit('user', name)
 
 // Remove blur class && prompt div
-  document.getElementById('start').remove()
-  document.getElementById('container').classList.remove('blur')
+  document.querySelector('#start').remove()
+  document.querySelector('#container').classList.remove('blur')
 
 // Get messages from server
   socket.on('setMessages', msgs => {
-    msgs.reverse().map(msg => {
+    msgs.reverse().forEach(msg => {
       chatWindow.insertBefore(renderMessage(msg), chatWindow.childNodes[0])
       chatWindow.scrollTop = chatWindow.scrollHeight
     })
@@ -78,8 +78,8 @@ function miniChat(socket, name) {
     chatWindow.insertBefore(renderMessage(message), chatWindow.childNodes[0])
     chatWindow.scrollTop = chatWindow.scrollHeight
 
-    if (document.hidden && Notification.requestPermission(function(){})) { // Check if window focus to send notification
-      new Notification(message.name, { body: message.text.toString(), icon: './img/poulet.png'})
+    if (document.hidden && Notification.requestPermission(() => {})) { // Check if window focus to send notification
+      new Notification(message.name, {body: message.text.toString(), icon: './img/poulet.png'})
     }
   })
 
@@ -106,7 +106,7 @@ function start() {
   } else {
     prompt.addEventListener('submit', e => {
       e.preventDefault()
-      name = nameSetter?.value.split('').join('').replace(/[aeiouy]/ig, '')
+      name = nameSetter?.value.split('').join('').replace(/[aeiouy]/gi, '')
 
       if (name && name !== 'null' && name !== '') {
         localStorage.setItem('name', name)
@@ -128,8 +128,8 @@ chat.addEventListener('submit', event => {
     const cleanMessage = formatMessage(msg.value)
 
     socket.emit('chat', {
-      'name': name,
-      'text': cleanMessage,
+      name,
+      text: cleanMessage,
       time: formatDate(date)
     })
   }

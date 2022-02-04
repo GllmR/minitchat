@@ -1,18 +1,19 @@
 // Regex to check link (not mine of course 🤡)
-const MAXI_REGEX = /^(http(s)?:\/\/)?(www.)?([a-zA-Z0-9])+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/[^\s]*)?$/gm
+const MAXI_REGEX = /^(http(s)?:\/\/)?(www.)?([a-zA-Z\d])+(\.[a-zA-Z\d]+)*\.[a-zA-Z]{2,5}(:\d{1,5})?(\/\S*)?$/gm
 
 // Format date in javascript is 𝔉𝔘𝔑
 export function formatDate(date) {
-  return `${date.toLocaleString('fr-FR',{month: 'numeric', day: 'numeric'})}|${date.toLocaleString('fr-FR',{hour: 'numeric', minute: 'numeric', second: 'numeric'})}`
+  return `${date.toLocaleString('fr-FR', {month: 'numeric', day: 'numeric'})}|${date.toLocaleString('fr-FR', {hour: 'numeric', minute: 'numeric', second: 'numeric'})}`
 }
 
 // Check if it's a link, then add a <a>
 export function urlToLink(message) {
-  return message.replace(MAXI_REGEX, function (url) {
-    let link = url;
-    if (!link.match('^https?:\/\/')) {
-      link = 'http://' + link;
+  return message.replace(MAXI_REGEX, url => {
+    let link = url
+    if (!link.match('^https?://')) {
+      link = 'http://' + link
     }
+
     return `<a href="${link}" target="_blank">${url}</a>`
   })
 }
@@ -30,7 +31,7 @@ export function sendNotification(string, time, container) {
   const notifications = container || document.body
   notification.classList.add('notification')
   notification.innerHTML = (string)
-  notifications.appendChild(notification)
+  notifications.append(notification)
   setTimeout(() => {
     notification.innerHTML = ''
     notification.classList.add('hidden')
@@ -40,9 +41,10 @@ export function sendNotification(string, time, container) {
 
 // Trim & check if there's a link in the message
 export function formatMessage(message) {
-  let cleanMessage = message.replaceAll(/<[^>]*>/g, '')
-  let arrayMsg = cleanMessage.split(' ')
-  let linkArray = []
+  const cleanMessage = message.replaceAll(/<[^>]*>/g, '')
+  const arrayMsg = cleanMessage.split(' ')
+  const linkArray = []
+
   arrayMsg.forEach(w => {
     if (MAXI_REGEX.test(w)) {
       linkArray.push(urlToLink(w).trim())
@@ -58,12 +60,11 @@ export function formatMessage(message) {
 export function renderMessage(message) {
   const div = document.createElement('div')
   div.classList.add('render-message')
-  div.innerHTML =
-    `<div class="message">
-      <span class="time">
-        ${message.time}
-      </span> ◀︎<span class="pseudo"> ${message.name} </span>▶︎ <span>${message.text}</span>
-    </div>`
+  div.innerHTML = `<div class="message">
+                    <span class="time">
+                      ${message.time}
+                    </span> ◀︎<span class="pseudo"> ${message.name} </span>▶︎ <span>${message.text}</span>
+                  </div>`
 
-    return div
+  return div
 }

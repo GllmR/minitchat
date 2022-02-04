@@ -9,7 +9,7 @@
   },
   "keywords": [],
   "author": "GllmR",
-  "license": "GPL3",
+  "license": "GPL-3.0-or-later",
   "dependencies": {
     "express": "^4.17.1",
     "mongodb": "^4.1.3",
