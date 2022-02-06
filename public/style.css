@@ -8,11 +8,11 @@ html, body {
   justify-content: center;
   font-size: 1rem;
   line-height: 1.5;
-  font-family: 'Hack', monospace;
+  font-family: Hack, monospace;
 }
 
 pre {
-  font-family: 'Hack', monospace;
+  font-family: Hack, monospace;
   font-size: 8px;
   text-align: center;
 }
@@ -37,7 +37,7 @@ textarea:focus, input:focus{
 }
 
 input[type='text'] {
-  font-family: 'Hack', monospace;
+  font-family: Hack, monospace;
 }
 
 #container {
@@ -78,7 +78,7 @@ input[type='text'] {
 .chat-input, .submit-input {
   border: 1px solid deeppink;
   border-radius: 5px;
-  font-family: 'Hack', monospace;
+  font-family: Hack, monospace;
   font-size: 1em;
   width: 100%;
   background-color: #1a1a1a;
@@ -111,7 +111,7 @@ input[type='text'] {
   color: #6c757d;
   border-radius: 5px;
   letter-spacing: 5px;
-  font-family: 'Hack', monospace;
+  font-family: Hack, monospace;
   transition: border-color .30s ease-in-out,box-shadow .30s ease-in-out, letter-spacing .30s ease-in-out;
 }
 
@@ -194,7 +194,7 @@ input[type='text'] {
 
 .notification {
   display: block;
-  font-family: 'Hack', monospace;
+  font-family: Hack, monospace;
   background-color: rgba(0, 0, 0, 0.7);
   padding: 1em;
   margin: .5em;
@@ -251,7 +251,7 @@ input[type='text'] {
   display: block;
   width: 70%;
   max-width: 500px;
-  font-family: 'Hack', monospace;
+  font-family: Hack, monospace;
   background-color: rgba(0, 0, 0, 0.7);
   padding: 1em;
   color: deeppink;
