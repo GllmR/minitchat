@@ -110,6 +110,7 @@ function miniChat(socket, name) {
 // 🍪 Ask for username 𝕱 𝕺 𝕽 𝕰 𝖁 𝕰 𝕽 👾
 function start() {
   if (name && name !== 'null') {
+    socket.emit('getMessages')
     miniChat(socket, name)
   } else {
     prompt.addEventListener('submit', e => {
@@ -131,10 +132,9 @@ function start() {
 chat.addEventListener('submit', event => {
   event.preventDefault()
   const date = new Date()
+  const cleanMessage = formatMessage(msg.value)
 
-  if (msg.value.split('').join('').trim() !== '') {
-    const cleanMessage = formatMessage(msg.value)
-
+  if (cleanMessage.split('').join('').trim() !== '') {
     socket.emit('chat', {
       name,
       text: cleanMessage,
