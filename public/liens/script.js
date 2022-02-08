@@ -20,7 +20,7 @@ function renderLinks(link) {
 socket.emit('getLinks')
 
 socket.on('allLinks', links => {
-  links.forEach(link => {
+  links.reverse().forEach(link => {
     renderLinks(link)
   })
 })
