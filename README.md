@@ -45,7 +45,7 @@ git clone https://github.com/GllmR/minitchat.git
 
 Then the classic : 
 ```bash
-npm install
+cd minitchat && npm install
 ```
 
 And start it : 
