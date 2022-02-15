@@ -1,5 +1,5 @@
 // Regex to check link (not mine of course 🤡)
-const MAXI_REGEX = /^(http(s)?:\/\/)?(www.)?([a-zA-Z\d])+(\.[a-zA-Z\d]+)*\.[a-zA-Z]{2,5}(:\d{1,5})?(\/\S*)?$/gm
+const MAXI_REGEX = /^(http(s)?:\/\/)?(www.)?([a-zA-Z0-9])+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/[^\s]*)?$/gm
 
 // Format date in javascript is 𝔉𝔘𝔑
 export function formatDate(date) {
