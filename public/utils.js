@@ -2,7 +2,8 @@
 const MAXI_REGEX = /^(http(s)?:\/\/)?(www.)?([a-zA-Z0-9])+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/[^\s]*)?$/gm
 
 // Format date in javascript is 𝔉𝔘𝔑
-export function formatDate(date) {
+export function formatDate(rawDate) {
+  const date = new Date(rawDate)
   return `${date.toLocaleString('fr-FR', {month: 'numeric', day: 'numeric'})}|${date.toLocaleString('fr-FR', {hour: 'numeric', minute: 'numeric', second: 'numeric'})}`
 }
 
@@ -59,10 +60,11 @@ export function formatMessage(message) {
 // Render message line with date and name
 export function renderMessage(message) {
   const div = document.createElement('div')
+  const formatedDate = formatDate(message.time)
   div.classList.add('render-message')
   div.innerHTML = `<div class="message">
                     <span class="time">
-                      ${message.time}
+                      ${formatedDate}
                     </span> ◀︎<span class="pseudo"> ${message.name} </span>▶︎ <span>${message.text}</span>
                   </div>`
 

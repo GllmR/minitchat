@@ -138,7 +138,7 @@ chat.addEventListener('submit', event => {
     socket.emit('chat', {
       name,
       text: cleanMessage,
-      time: formatDate(date)
+      time: date
     })
   }
 
