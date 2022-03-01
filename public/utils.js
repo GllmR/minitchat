@@ -41,7 +41,7 @@ export function sendNotification(string, time, container) {
 
 // Trim & check if there's a link in the message
 export function formatMessage(message) {
-  const cleanMessage = message.replaceAll(/<[^>]*>/g, '')
+  const cleanMessage = message.replaceAll(/<[^>]*>/g, '').replaceAll('&nbsp;', '')
   const arrayMsg = cleanMessage.split(' ')
   const linkArray = []
 
