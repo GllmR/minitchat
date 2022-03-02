@@ -16,7 +16,6 @@ _A cool chat in NodeJs_
 - Kaomojis (\*-\*) 
 - Page displaying all links posted on the minitchat
 - Remove vowels from nickname
-- Responsive
 
 ---
 
@@ -52,7 +51,6 @@ And start it :
 ```bash 
 npm run minitchat
 ```
-or deploy with nginx and pm2
 
 It run on port 3000, you can change it in `minitchat.js`
 
