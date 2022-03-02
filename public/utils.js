@@ -7,6 +7,15 @@ export function formatDate(rawDate) {
   return `${date.toLocaleString('fr-FR', {month: 'numeric', day: 'numeric'})}|${date.toLocaleString('fr-FR', {hour: 'numeric', minute: 'numeric', second: 'numeric'})}`
 }
 
+// https://css-tricks.com/snippets/javascript/htmlentities-for-javascript/ ❤️
+export function cleanHTML(string) {
+  return String(string)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+}
+
 // Check if it's a link, then add a <a>
 export function urlToLink(message) {
   return message.replace(MAXI_REGEX, url => {
@@ -42,7 +51,7 @@ export function sendNotification(string, time, container) {
 
 // Trim & check if there's a link in the message
 export function formatMessage(message) {
-  const cleanMessage = message.replaceAll(/<[^>]*>/g, '').replaceAll('&nbsp;', '')
+  const cleanMessage = cleanHTML(message)
   const arrayMsg = cleanMessage.split(' ')
   const linkArray = []
 
