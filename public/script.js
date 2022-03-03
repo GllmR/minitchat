@@ -115,7 +115,7 @@ function start() {
   } else {
     prompt.addEventListener('submit', e => {
       e.preventDefault()
-      name = nameSetter?.value.split('').join('').replace(/[aeiouy]/gi, '')
+      name = nameSetter?.value.split('').join('').trim().replace(/[aeiouy]/gi, '')
 
       if (name && name !== 'null' && name !== '') {
         localStorage.setItem('name', name)
