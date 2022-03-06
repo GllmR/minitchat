@@ -66,6 +66,21 @@ export function formatMessage(message) {
   return linkArray.join(' ')
 }
 
+// Upload file to server & return filename
+export async function uploadFile(formData) {
+  const res = await fetch('/files', {
+    method: "POST",
+    body: formData
+  })
+
+  if (res.ok) {
+    const filename = await res.json()
+    return filename
+  } else {
+    sendNotification(`😱 Oupss... Trop gros...`, null, document.querySelector('.notifications'))
+  }
+}
+
 // Render message line with date and name
 export function renderMessage(message) {
   const div = document.createElement('div')
