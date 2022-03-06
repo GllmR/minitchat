@@ -12,6 +12,7 @@
   "license": "GPL-3.0-or-later",
   "dependencies": {
     "express": "^4.17.1",
+    "formidable": "^2.0.1",
     "socket.io": "^4.0.0",
     "sqlite3": "^4.2.0"
   }
