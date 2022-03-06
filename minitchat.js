@@ -4,6 +4,7 @@ const server = require('http').createServer(app)
 const port = process.env.PORT || 3000
 const io = require('socket.io')(server)
 const path = require('path')
+const formidable = require('formidable')
 const sqlite3 = require('sqlite3').verbose()
 const db = new sqlite3.Database('./db/minitchat.db', err => {
   if (err) {
@@ -15,6 +16,29 @@ const db = new sqlite3.Database('./db/minitchat.db', err => {
 let users = []
 
 app.use(express.static(path.join(__dirname + '/public')))
+
+app.route('/files')
+  .get((req, res) => {
+    res.redirect(`/liens`)
+  })
+  .post((req, res, next) => {
+    const form = formidable({
+      uploadDir: `${__dirname}/public/files`,
+      keepExtensions: true,
+      filename: (name, ext, part, form) => {
+        return part.originalFilename.replaceAll(' ', '_')
+      }
+    })
+
+    form.parse(req, (err, fields, files) => {
+      if (err) {
+        next(err)
+        return
+      }
+
+      res.json(String(files.file.newFilename))
+    })
+  })
 
 db.run('CREATE TABLE IF NOT EXISTS messages(text, time, name)')
 
