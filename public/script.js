@@ -1,7 +1,8 @@
-import {formatMessage, sendNotification, formatDate, renderMessage} from './utils.js'
+import {formatMessage, sendNotification, formatDate, renderMessage, uploadFile} from './utils.js'
 
 const socket = io()
 
+const container = document.querySelector('#container')
 const chat = document.querySelector('.chat-form')
 const prompt = document.querySelector('.chat-prompt')
 const msg = document.querySelector('.chat-input')
@@ -10,6 +11,7 @@ const chatWindow = document.querySelector('.chat-window')
 const usersList = document.querySelector('.users-list')
 const emojis = document.querySelectorAll('.chat-btn')
 const notifications = document.querySelector('.notifications')
+const fileButton = document.querySelector('.file-submit')
 let messages = []
 
 // Check if a name is in the localstorage
@@ -46,6 +48,54 @@ for (const emoji of emojis) {
   }
 }
 
+/********* File Upload ********\
+*     Send file to server      *
+*  Transform file path to link *
+\******************************/
+
+fileButton.addEventListener('click', event => {
+  container.classList.add('blur')
+  const uploader = document.createElement('div')
+
+  uploader.id = 'fullscreen'
+  uploader.innerHTML= `
+    <form action="/files" enctype="multipart/form-data" method="post" class="uploader">
+      <input id="file" type="file" name="multipleFiles" multiple="multiple" class="file-input" />
+      <div class="chat-btn-container">
+        <input id="upload" type="button" value="Partager" class="file-submit" />
+        <input id="cancel" type="button" value="Annuler" class="file-submit" />
+      </div>
+    </form>
+  `
+  document.body.append(uploader)
+
+  document.querySelector('#cancel').addEventListener('click', () => {
+    container.classList.remove('blur')
+    uploader.remove()
+  })
+
+  document.querySelector('#upload').addEventListener('click', async e => {
+    e.preventDefault()
+    const fileInput = document.querySelector('#file')
+    const formData = new FormData()
+
+    if (fileInput.files.length > 0 && fileInput.files[0].type !== 'text/html') {
+      formData.append('file', fileInput.files[0])
+      const file = await uploadFile(formData)
+      container.classList.remove('blur')
+      uploader.remove()
+
+      if (file) {
+        socket.emit('chat', {
+          name,
+          text: `<a href="/files/${file}" target="_blank">${file}</a>`,
+          time: new Date()
+        })
+      }
+    }
+  })
+})
+
 /*###############################
 # Display users list under input #
  ################################*/
@@ -63,8 +113,8 @@ function miniChat(socket, name) {
   socket.emit('user', name)
 
 // Remove blur class && prompt div
-  document.querySelector('#start').remove()
-  document.querySelector('#container').classList.remove('blur')
+  document.querySelector('#fullscreen').remove()
+  container.classList.remove('blur')
 
 // Get messages from server
   socket.on('setMessages', msgs => {
