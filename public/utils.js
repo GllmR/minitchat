@@ -39,7 +39,7 @@ export function urlToLink(message) {
 export function sendNotification(string, time, container) {
   const notification = document.createElement('div')
   const notifications = container || document.body
-  notification.classList.add('notification')
+  notification.classList.add('notification', 'cool-div')
   notification.innerHTML = (string)
   notifications.append(notification)
   setTimeout(() => {

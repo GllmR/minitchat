@@ -4,7 +4,7 @@ const socket = io()
 
 const container = document.querySelector('#container')
 const chat = document.querySelector('.chat-form')
-const prompt = document.querySelector('.chat-prompt')
+const prompt = document.querySelector('.popup')
 const msg = document.querySelector('.chat-input')
 const nameSetter = document.querySelector('.submit-input')
 const chatWindow = document.querySelector('.chat-window')
@@ -59,11 +59,13 @@ fileButton.addEventListener('click', event => {
 
   uploader.id = 'fullscreen'
   uploader.innerHTML= `
-    <form action="/files" enctype="multipart/form-data" method="post" class="uploader">
-      <input id="file" type="file" name="multipleFiles" multiple="multiple" class="file-input" />
+    <form action="/files" enctype="multipart/form-data" method="post" class="popup cool-div">
+      <label class="chat-label">
+        <input id="file" type="file" name="multipleFiles" multiple="multiple" class="file-input" />
+      </label>
       <div class="chat-btn-container">
-        <input id="upload" type="button" value="Partager" class="file-submit" />
-        <input id="cancel" type="button" value="Annuler" class="file-submit" />
+        <button id="upload" type="button">Partager</button>
+        <button id="cancel" type="button">Annuler</button>
       </div>
     </form>
   `
