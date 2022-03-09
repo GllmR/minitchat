@@ -17,10 +17,10 @@ let messages = []
 // Check if a name is in the localstorage
 let name = localStorage.getItem('name') || null
 
-/*#############################################
-# Fill input with double-clicked text or link #
-# Remove it if you don't like it              #
- ############################################*/
+/************** Quote function ***************\
+* Fill input with double-clicked text or link *
+*      Remove it if you don't like it         *
+\*********************************************/
 
 chatWindow.ondblclick = e => {
   if (e.target.href || e.target.className === 'chat-window') {
@@ -36,10 +36,10 @@ chatWindow.ondblclick = e => {
   msg.focus()
 }
 
- /************ Emojis event *************\
+/************ Emojis event ***************\
 * Add onClick on all buttons in container *
-* OnClick set button text to input        *
- \***************************************/
+*    OnClick set button text to input     *
+\*****************************************/
 
 for (const emoji of emojis) {
   emoji.onclick = () => {
@@ -98,9 +98,9 @@ fileButton.addEventListener('click', event => {
   })
 })
 
-/*###############################
-# Display users list under input #
- ################################*/
+/********************************\
+* Display users list under input *
+\********************************/
 
 function renderUsersList(users) {
   usersList.innerHTML = users.map(user => ' ' + user)
@@ -178,9 +178,9 @@ function start() {
   }
 }
 
-/*##############################################################
-# On submit, clean message, add date then send it to the server #
- ##############################################################*/
+/***************************************************************\
+* On submit, clean message, add date then send it to the server *
+\***************************************************************/
 chat.addEventListener('submit', event => {
   event.preventDefault()
   const date = new Date()
