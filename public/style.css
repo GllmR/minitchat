@@ -270,7 +270,7 @@ label {
     flex-direction:  column;
   }
 
-  .chat-btn-container {
+  .chat-btn {
     display: none;
   }
 }
