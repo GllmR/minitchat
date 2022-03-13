@@ -28,6 +28,11 @@ export function urlToLink(message) {
   })
 }
 
+// Clean pseudo & remove vowels
+export function pseudoMaker(name) {
+  return cleanHTML(name).split('').join('').trim().replace(/[aeiouy]/gi, '')
+}
+
 /*##########################################################################
 # Notification function                                                     #
 # Need .notification css class                                              #

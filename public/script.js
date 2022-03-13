@@ -1,10 +1,9 @@
-import {formatMessage, sendNotification, formatDate, renderMessage, uploadFile} from './utils.js'
+import {formatMessage, sendNotification, formatDate, renderMessage, uploadFile, pseudoMaker} from './utils.js'
 
 const socket = io()
 
 const container = document.querySelector('#container')
 const chat = document.querySelector('.chat-form')
-const prompt = document.querySelector('.popup')
 const msg = document.querySelector('.chat-input')
 const nameSetter = document.querySelector('.submit-input')
 const chatWindow = document.querySelector('.chat-window')
@@ -46,6 +45,38 @@ for (const emoji of emojis) {
     msg.value += ' ' + emoji.textContent + ' '
     msg.focus()
   }
+}
+
+function askPseudo() {
+  const prompt = document.createElement('div')
+  container.classList.add('blur')
+  prompt.id = 'fullscreen'
+  prompt.innerHTML = `
+    <form class="popup cool-div">
+      <label>
+        Entrez votre Nom :
+      </label>
+      <label for="name">
+        <input type="text" name="name" class="submit-input" />
+      </label>
+      <button type="submit" class="chat-submit">Entrer</button>
+    </form>
+  `
+  document.body.append(prompt)
+
+  prompt.addEventListener('submit', e => {
+    e.preventDefault()
+    const newName = pseudoMaker(document.querySelector('.submit-input').value)
+
+    if (newName && newName !== 'nll' && newName !== '') {
+      localStorage.setItem('name', newName)
+      name = newName
+      socket.emit('getMessages')
+      miniChat(socket, newName)
+      container.classList.remove('blur')
+      prompt.remove()
+    }
+  })
 }
 
 /********* File Upload ********\
@@ -114,10 +145,6 @@ function miniChat(socket, name) {
 // Send user name to server
   socket.emit('user', name)
 
-// Remove blur class && prompt div
-  document.querySelector('#fullscreen').remove()
-  container.classList.remove('blur')
-
 // Get messages from server
   socket.on('setMessages', msgs => {
     if (messages?.length !== msgs.length) {
@@ -165,16 +192,7 @@ function start() {
     socket.emit('getMessages')
     miniChat(socket, name)
   } else {
-    prompt.addEventListener('submit', e => {
-      e.preventDefault()
-      name = nameSetter?.value.split('').join('').trim().replace(/[aeiouy]/gi, '')
-
-      if (name && name !== 'null' && name !== '') {
-        localStorage.setItem('name', name)
-        socket.emit('getMessages')
-        miniChat(socket, name)
-      }
-    })
+    askPseudo()
   }
 }
 
