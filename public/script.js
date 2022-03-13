@@ -47,6 +47,10 @@ for (const emoji of emojis) {
   }
 }
 
+/********** Prompt to ask & transform pseudonyme ***********\
+* If no name in local storage, open a prompt & ask username *
+\***********************************************************/
+
 function askPseudo() {
   const prompt = document.createElement('div')
   container.classList.add('blur')
