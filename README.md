@@ -8,12 +8,13 @@ _A cool chat in NodeJs_
 
 ### Features : 
 - No connexion, no password, no email
-- Display last 100 messages 
+- File sharing
+- Display last 100 messages
 - Highlight links automatically
 - Display connected users list
-- System notifications 
+- System notifications
 - Double click to quote
-- Kaomojis (\*-\*) 
+- Kaomojis (\*-\*)
 - Page displaying all links posted on the minitchat
 - Remove vowels from nickname
 
