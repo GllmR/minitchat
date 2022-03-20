@@ -75,6 +75,14 @@ io.on('connection', socket => {
     io.emit('chat', message)
   })
 
+  socket.on('isTyping', name => {
+    io.emit('isTyping', name)
+  })
+
+  socket.on('stopTyping', name => {
+    io.emit('stopTyping', name)
+  })
+
 // Get All messages containing "<a href="
   socket.on('getLinks', () => {
     db.all(`SELECT * FROM messages WHERE text GLOB '*<a href=*'`, [], (err, links) => {

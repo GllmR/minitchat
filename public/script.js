@@ -138,7 +138,7 @@ fileButton.addEventListener('click', event => {
 \********************************/
 
 function renderUsersList(users) {
-  usersList.innerHTML = users.map(user => ' ' + user)
+  usersList.innerHTML = users.map(user => ' <span>' + user + '</span>')
 }
 
 /*******************************\
@@ -186,6 +186,16 @@ function miniChat(socket, name) {
     renderUsersList(users)
   })
 
+// Change user’s name color in usersList when typing
+  socket.on('isTyping', name => {
+    Array.from(usersList.children).find(c => c.innerText === name).classList.add('pseudo')
+  })
+
+// Restore color in usersList
+  socket.on('stopTyping', name => {
+    Array.from(usersList.children).find(c => c.innerText === name).classList.remove('pseudo')
+  })
+
 // Hello to stalker
   console.log('%cTu regardes quoi ' + name + ' ?', 'color: deeppink; background-color: black; border: 1px solid lime; font-size: 3vw; padding: 2%; margin-bottom: 25px;')
 }
@@ -214,9 +224,20 @@ chat.addEventListener('submit', event => {
       text: cleanMessage,
       time: date
     })
+
+    socket.emit('stopTyping', name)
   }
 
   msg.value = ''
+})
+
+// Listen to input for isTyping event
+msg.addEventListener('input', event => {
+  if (msg.value !== '') {
+    socket.emit('isTyping', name)
+  } else {
+    socket.emit('stopTyping', name)
+  }
 })
 
 // Start mini-chat 🎉
