@@ -25,6 +25,7 @@ app.route('/files')
     const form = formidable({
       uploadDir: `${__dirname}/public/files`,
       keepExtensions: true,
+      maxFileSize: 10000000,
       filename: (name, ext, part, form) => {
         return part.originalFilename.replaceAll(' ', '_')
       }
