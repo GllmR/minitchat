@@ -119,8 +119,8 @@ fileButton.addEventListener('click', event => {
     if (fileInput.files.length > 0 && fileInput.files[0].type !== 'text/html') {
       uploader.innerHTML = `
         <form class="popup cool-div">
-          <p>Téléversement en cours... Patientez !</p>
           <image src="img/poulet.png" class="rotate" />
+          <p>Téléversement en cours... Patientez !</p>
         </form>
       `
       formData.append('file', fileInput.files[0])
