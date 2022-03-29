@@ -54,7 +54,7 @@ for (const emoji of emojis) {
 function askPseudo() {
   const prompt = document.createElement('div')
   container.classList.add('blur')
-  prompt.id = 'fullscreen'
+  prompt.id = 'popupContainer'
   prompt.innerHTML = `
     <form class="popup cool-div">
       <label>
@@ -92,7 +92,7 @@ fileButton.addEventListener('click', event => {
   container.classList.add('blur')
   const uploader = document.createElement('div')
 
-  uploader.id = 'fullscreen'
+  uploader.id = 'popupContainer'
   uploader.innerHTML= `
     <form action="/files" enctype="multipart/form-data" method="post" class="popup cool-div">
       <label class="chat-label">
