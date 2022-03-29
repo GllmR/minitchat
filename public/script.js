@@ -72,7 +72,7 @@ function askPseudo() {
     e.preventDefault()
     const newName = pseudoMaker(document.querySelector('.submit-input').value)
 
-    if (newName && newName !== 'nll' && newName !== '') {
+    if (newName) {
       localStorage.setItem('name', newName)
       name = newName
       socket.emit('getMessages')
