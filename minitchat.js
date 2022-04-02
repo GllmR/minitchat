@@ -15,6 +15,15 @@ const db = new sqlite3.Database('./db/minitchat.db', err => {
 })
 let users = []
 
+function removeItemOnce(arr, value) {
+  const index = arr.indexOf(value)
+  if (index > -1) {
+    arr.splice(index, 1)
+  }
+
+  return arr
+}
+
 app.use(express.static(path.join(__dirname + '/public')))
 
 app.route('/files')
@@ -55,7 +64,7 @@ io.on('connection', socket => {
     io.emit('newUser', {name, users})
 
     socket.on('disconnect', () => {
-      users = users.filter(u => u !== socket.name)
+      users = removeItemOnce(users, socket.name)
       io.emit('leave', {name: socket.name, users})
     })
   })
