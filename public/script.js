@@ -194,6 +194,13 @@ function miniChat(socket, name) {
 
 // Change user’s name color in usersList when typing
   socket.on('isTyping', name => {
+    // Check if user is in the usersList
+    if (!Array.from(usersList.children).find(c => c.innerText === name)) {
+      const userName = document.createElement('span')
+      userName.innerHTML = name
+      usersList.append(userName)
+    }
+
     Array.from(usersList.children).find(c => c.innerText === name).classList.add('pseudo')
   })
 
