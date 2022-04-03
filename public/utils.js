@@ -99,3 +99,60 @@ export function renderMessage(message) {
 
   return div
 }
+
+
+/********* File Upload ********\
+*     Send file to server      *
+*  Transform file path to link *
+\******************************/
+
+export function popupUpload(event, container, socket) {
+  container.classList.add('blur')
+  const uploader = document.createElement('div')
+
+  uploader.id = 'popupContainer'
+  uploader.innerHTML= `
+    <form action="/files" enctype="multipart/form-data" method="post" class="popup cool-div">
+      <label class="chat-label">
+        <input id="file" type="file" name="multipleFiles" multiple="multiple" class="file-input" />
+      </label>
+      <div class="chat-btn-container">
+        <button id="upload" type="button">Partager</button>
+        <button id="cancel" type="button">Annuler</button>
+      </div>
+    </form>
+  `
+  document.body.append(uploader)
+
+  document.querySelector('#cancel').addEventListener('click', () => {
+    container.classList.remove('blur')
+    uploader.remove()
+  })
+
+  document.querySelector('#upload').addEventListener('click', async e => {
+    e.preventDefault()
+    const fileInput = document.querySelector('#file')
+    const formData = new FormData()
+
+    if (fileInput.files.length > 0 && fileInput.files[0].type !== 'text/html') {
+      uploader.innerHTML = `
+        <form class="popup cool-div">
+          <image src="img/poulet.png" class="rotate" />
+          <p>Téléversement en cours... Patientez !</p>
+        </form>
+      `
+      formData.append('file', fileInput.files[0])
+      const file = await uploadFile(formData)
+      container.classList.remove('blur')
+      uploader.remove()
+
+      if (file) {
+        socket.emit('chat', {
+          name,
+          text: `<a href="/files/${file}" target="_blank">${file}</a>`,
+          time: new Date()
+        })
+      }
+    }
+  })
+}
