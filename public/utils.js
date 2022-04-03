@@ -114,7 +114,7 @@ export function popupUpload(event, container, socket) {
   uploader.innerHTML= `
     <form action="/files" enctype="multipart/form-data" method="post" class="popup cool-div">
       <label class="chat-label">
-        <input id="file" type="file" name="multipleFiles" multiple="multiple" class="file-input" />
+        <input id="file" type="file" name="file" class="file-input" />
       </label>
       <div class="chat-btn-container">
         <button id="upload" type="button">Partager</button>
