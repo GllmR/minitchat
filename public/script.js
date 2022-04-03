@@ -141,7 +141,7 @@ function miniChat(socket, name) {
     // Check if user is in the usersList
     if (!Array.from(usersList.children).find(c => c.innerText === name)) {
       const userName = document.createElement('span')
-      userName.innerHTML = name
+      userName.innerHTML = ' ' + name
       usersList.append(userName)
     }
 
@@ -187,15 +187,16 @@ chat.addEventListener('submit', event => {
   }
 
   msg.value = ''
+  msg.blur()
 })
 
 // Listen to input for isTyping event
-msg.addEventListener('input', event => {
-  if (msg.value !== '') {
-    socket.emit('isTyping', name)
-  } else {
-    socket.emit('stopTyping', name)
-  }
+msg.addEventListener('focus', event => {
+  socket.emit('isTyping', name)
+})
+
+msg.addEventListener('blur', event => {
+  socket.emit('stopTyping', name)
 })
 
 // Start mini-chat 🎉
