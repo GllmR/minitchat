@@ -103,7 +103,7 @@ function miniChat(socket, name) {
   socket.on('setMessages', msgs => {
     if (messages?.length !== msgs.length) {
       msgs.forEach(msg => {
-        chatWindow.insertBefore(renderMessage(msg), chatWindow.childNodes[0])
+        chatWindow.appendChild(renderMessage(msg))
       })
       
       chatWindow.scrollTop = chatWindow.scrollHeight
@@ -116,7 +116,7 @@ function miniChat(socket, name) {
   socket.on('chat', message => {
     messages?.push(message)
 
-    chatWindow.insertBefore(renderMessage(message), chatWindow.childNodes[0])
+    chatWindow.appendChild(renderMessage(message))
     chatWindow.scrollTop = chatWindow.scrollHeight
 
     if (document.hidden && Notification.requestPermission(() => {})) { // Check if window focus to send notification

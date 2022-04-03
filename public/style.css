@@ -186,14 +186,10 @@ label {
   height: 100%;
   overflow: hidden auto;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   padding: .5em;
   scrollbar-width: auto;
   scrollbar-color: chartreuse #1a1a1a;
-}
-
-.links-window {
-  flex-direction: column;
 }
 
 .chat-form {
