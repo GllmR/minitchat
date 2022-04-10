@@ -106,10 +106,11 @@ export function renderMessage(message) {
 *  Transform file path to link *
 \******************************/
 
-export function popupUpload(event, container, socket) {
-  container.classList.add('blur')
+export function popupUpload(props) {
+  const {event, container, socket} = {...props}
   const uploader = document.createElement('div')
 
+  container.classList.add('blur')
   uploader.id = 'popupContainer'
   uploader.innerHTML= `
     <form action="/files" enctype="multipart/form-data" method="post" class="popup cool-div">
