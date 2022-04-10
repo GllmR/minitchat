@@ -107,7 +107,7 @@ export function renderMessage(message) {
 \******************************/
 
 export function popupUpload(props) {
-  const {event, container, socket} = {...props}
+  const {event, container, socket, name} = {...props}
   const uploader = document.createElement('div')
 
   container.classList.add('blur')

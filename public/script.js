@@ -154,7 +154,7 @@ function miniChat(socket, name) {
 function start() {
   if (name && name !== 'null') {
     socket.emit('getMessages')
-    fileButton.addEventListener('click', event => popupUpload({event, container, socket}))
+    fileButton.addEventListener('click', event => popupUpload({event, container, socket, name}))
     miniChat(socket, name)
   } else {
     askPseudo()
