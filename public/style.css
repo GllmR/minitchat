@@ -116,6 +116,14 @@ label {
   z-index: 999;
 }
 
+#results {
+  margin: .5em 1em;
+  padding: 0 1em;
+  display: flex;
+  flex-direction: column;
+  height: 75%;
+}
+
 .blur {
   filter: blur(8px);
   z-index: 666;
@@ -265,6 +273,10 @@ label {
   margin: auto;
   padding: .5em;
   height:  55px;
+}
+
+.render-message {
+  color: lime;
 }
 
 @keyframes shadow {

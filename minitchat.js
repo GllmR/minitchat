@@ -52,6 +52,41 @@ app.route('/files')
 
 db.run('CREATE TABLE IF NOT EXISTS messages(text, time, name)')
 
+app.all('/pseudo/:pseudo', (req, res) => {
+  db.all(`SELECT * FROM messages WHERE name = ?`, [req.params.pseudo], (err, rows) => {
+    if (err) {
+      res.status(400).json({"error": err.message})
+      return
+    }
+
+    res.status(200).json(rows)
+  })
+})
+
+app.get('/all', (req, res) => {
+  db.all(`SELECT * FROM 'messages'`, [], (err, rows) => {
+    if (err) {
+      res.status(400).json({"error":err.message})
+      return
+    }
+
+    res.status(200).json(rows)
+  })
+})
+
+app.all('/search/:word', (req, res) => {
+  const search = [req.params.word]
+
+  db.all(`SELECT * FROM messages where text LIKE ?`, `%${search}%`, (err, rows) => {
+    if (err) {
+      res.status(400).json({"error": err.message})
+      return
+    }
+
+    res.status(200).json(rows)
+  })
+})
+
 io.on('connection', socket => {
 // Display  number of connected users
   console.log(io.engine.clientsCount)
